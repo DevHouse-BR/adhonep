@@ -1,0 +1,88 @@
+.x-grid3-hd-id-col-pessoas-email, .x-grid3-hd-id-col-pessoas-cidades {
+    color: black;
+}
+
+.x-grid3-td-id-col-pessoas-email {
+    color: #0b55c4;
+}
+.x-grid3-td-id-col-pessoas-cidades {
+    color: #008000;
+}
+.x-grid3-td-cidades-cidadeCol {
+    color: black;
+}
+
+.vermelho {
+    background-image:url(../images/vermelho.gif) !important;
+}
+.verde {
+    background-image:url(../images/verde.gif) !important;
+}
+.amarelo {
+    background-image:url(../images/amarelo.gif) !important;
+}
+
+#id-modulo-grid-pessoas-shortcut img {
+    width:48px;
+    height:48px;
+    background-image: url(../images/pessoas.png);
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/pessoas.png', sizingMethod='scale');
+}
+#cidades-win-shortcut img {
+    width:48px;
+    height:48px;
+    background-image: url(../images/cidades.png);
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/cidades.png', sizingMethod='scale');
+}
+#locais-win-shortcut img {
+    width:48px;
+    height:48px;
+    background-image: url(../images/locais.png);
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/locais.png', sizingMethod='scale');
+}
+#atributospessoais-win-shortcut img {
+    width:48px;
+    height:48px;
+    background-image: url(../images/atributos_pessoais.png);
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/atributos_pessoais.png', sizingMethod='scale');
+}
+#downloads-win-shortcut img {
+    width:48px;
+    height:48px;
+    background-image: url(../images/downloads.png);
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/downloads.png', sizingMethod='scale');
+}
+#ideias-win-shortcut img {
+    width:48px;
+    height:48px;
+    background-image: url(../images/ideias.png);
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/ideias.png', sizingMethod='scale');
+}
+#agenda-win-shortcut img {
+    width:48px;
+    height:48px;
+    background-image: url(../images/agenda.png);
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/agenda.png', sizingMethod='scale');
+}
+
+.pessoas {
+    background-image:url(../images/user.png) !important;
+}
+.cidades {
+    background-image:url(../images/cidades-pq.png) !important;
+}
+.locais {
+    background-image:url(../images/locais-pq.png) !important;
+}
+.atributospessoais {
+    background-image:url(../images/atributos_pessoais-pq.png) !important;
+}
+.downloads {
+    background-image:url(../images/downloads-pq.png) !important;
+}
+.ideias {
+    background-image:url(../images/ideias-pq.png) !important;
+}
+.agenda {
+    background-image:url(../images/agenda-pq.png) !important;
+}

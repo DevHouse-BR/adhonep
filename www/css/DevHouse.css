@@ -1,0 +1,120 @@
+/* Tira a Linha ondulada de erro no campo */
+.x-form-invalid, textarea.x-form-invalid {
+    background-image:url(../extjs/resources/images/default/form/text-bg.gif);
+}
+
+/* CSS Hack exibição titulo em painel colapsado em border layout */
+.x-collapsed-title{color:#15428b;font:11px/15px tahoma,arial,verdana,sans-serif;padding:2px 5px;font-weight: bold;}
+
+/* CSS Botão de Imagem do Editor */
+.botaoImagemUrl{
+	background-image:url(../images/botao_imagens.gif) !important;
+}
+.x-icon-addimage{
+ 	background-image:url(../images/image_add.png) !important;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/image_add.png', sizingMethod='scale');
+}
+
+
+/* CSS para Ext.ux.form.FileUploadField */
+.x-form-file-wrap {
+    position: relative;
+    height: 22px;
+}
+.x-form-file-wrap .x-form-file {
+	position: absolute;
+	right: 0;
+	-moz-opacity: 0;
+	filter:alpha(opacity: 0);
+	opacity: 0;
+	z-index: 2;
+    height: 22px;
+}
+.x-form-file-wrap .x-form-file-btn {
+	position: absolute;
+	right: 0;
+	z-index: 1;
+}
+.x-form-file-wrap .x-form-file-text {
+    position: absolute;
+    left: 0;
+    z-index: 3;
+    color: #777;
+}
+
+/* Botões de Menu contexto Barra de Tarefas */
+.maximizar {
+    background-image:url(../images/maximizar.png) !important;
+}
+.minimizar {
+    background-image:url(../images/minimizar.png) !important;
+}
+.restaurar {
+    background-image:url(../images/restaurar.png) !important;
+}
+.fechar {
+    background-image:url(../images/fechar.png) !important;
+}
+
+
+.alerta {
+    background-image:url(../images/alerta.png) !important;
+}
+.cadastros {
+    background-image:url(../images/application_form_add.png) !important;
+}
+.consultas {
+    background-image:url(../images/application_form_magnify.png) !important;
+}
+.creditos {
+    background-image:url(../images/vcard.png) !important;
+}
+.print {
+    background-image:url(../images/print.png) !important;
+}
+.salvar {
+    background-image:url(../images/disk.png) !important;
+}
+.cancelar {
+    background-image:url(../images/cancel.png) !important;
+}
+.busca {
+    background-image:url(../images/magnifier.png) !important;
+}
+.pizza{
+	 background-image:url(../images/chart_pie.png) !important;
+}
+.upload-icon {
+    background: url('../images/image_add.png') no-repeat 0 0 !important;
+}
+
+.logout {
+	background-image: url( ../images/logout.png ) !important;
+}
+
+.settings {
+	background-image: url( ../images/gears.gif ) !important;
+}
+.user-chart {
+	background-image: url( ../images/user_chart.png ) !important;
+}
+
+.naoverificado{
+	background-image: url( ../images/delete.gif ) !important;
+	background-repeat:no-repeat;
+	background-position: center;
+}
+.verificado{
+	background-image: url( ../images/accept.png ) !important;
+	background-repeat:no-repeat;
+	background-position: center;
+}
+.add {
+    background-image:url(../images/add.gif) !important;
+}
+.remove {
+    background-image:url(../images/delete.gif) !important;
+}
+.save {
+    background-image:url(../images/save.gif) !important;
+}

@@ -1,0 +1,1 @@
+<h4><?php echo $heading; ?></h4><br /><?php echo $message; ?>
