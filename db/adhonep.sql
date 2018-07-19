@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: Set 23, 2009 as 10:20 PM
+-- Tempo de Geração: Out 09, 2009 as 05:10 PM
 -- Versão do Servidor: 5.0.51
 -- Versão do PHP: 5.2.6
 
@@ -18,6 +18,110 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Banco de Dados: `adhonep`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `agenda`
+--
+
+CREATE TABLE IF NOT EXISTS `agenda` (
+  `idagenda` int(10) unsigned NOT NULL auto_increment,
+  `datahora` datetime NOT NULL,
+  `novos` int(11) default NULL,
+  `total` int(11) default NULL,
+  `desc` text,
+  `site` tinyint(1) NOT NULL default '1',
+  `idlocais` int(10) unsigned NOT NULL,
+  `statuslocal` enum('vermelho','amarelo','verde') NOT NULL default 'vermelho',
+  `idpessoas` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`idagenda`),
+  KEY `fk_agenda_locais1` (`idlocais`),
+  KEY `fk_agenda_pessoas1` (`idpessoas`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Extraindo dados da tabela `agenda`
+--
+
+INSERT INTO `agenda` (`idagenda`, `datahora`, `novos`, `total`, `desc`, `site`, `idlocais`, `statuslocal`, `idpessoas`) VALUES
+(1, '2009-09-27 23:07:00', 0, 50, 'Descrição <b>bla</b> bla bla', 1, 1, 'vermelho', 1),
+(2, '0000-00-00 00:00:00', 22, 200, '&nbsp;fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds<br>\n\n\n\n\n\n\n\n\n\n\n\n\n', 1, 1, 'amarelo', 1),
+(3, '0000-00-00 00:00:00', 0, 4321, 'gfdsgfds gfsg fs fs<br>', 1, 5, 'vermelho', 1),
+(4, '2009-10-10 10:00:00', 0, 3234, 'fdsafdsa', 1, 4, 'verde', 1),
+(5, '2009-10-09 17:15:00', 8, 432, 'fdsafsd', 1, 5, 'vermelho', 1),
+(6, '2009-10-04 03:15:00', 253, 2342432, 'fdsafdsa', 1, 1, 'amarelo', 1),
+(7, '2009-10-28 02:45:00', 43, 43234, 'aaaaaa', 1, 1, 'vermelho', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `agenda_encarregados`
+--
+
+CREATE TABLE IF NOT EXISTS `agenda_encarregados` (
+  `idagenda` int(10) unsigned NOT NULL,
+  `idpessoas` int(10) unsigned NOT NULL,
+  `tipo` tinyint(3) unsigned NOT NULL,
+  `status` enum('vermelho','amarelo','verde') NOT NULL default 'vermelho',
+  PRIMARY KEY  (`idagenda`,`idpessoas`,`tipo`),
+  KEY `fk_agenda_encarregados_agenda1` (`idagenda`),
+  KEY `fk_agenda_encarregados_pessoas1` (`idpessoas`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `agenda_encarregados`
+--
+
+INSERT INTO `agenda_encarregados` (`idagenda`, `idpessoas`, `tipo`, `status`) VALUES
+(1, 1, 1, 'vermelho'),
+(1, 2, 3, 'vermelho'),
+(1, 20, 4, 'vermelho'),
+(1, 22, 2, 'amarelo'),
+(2, 13, 1, 'vermelho'),
+(2, 18, 2, 'verde'),
+(2, 19, 3, 'verde'),
+(2, 58, 4, 'amarelo'),
+(3, 18, 4, 'vermelho'),
+(3, 22, 2, 'vermelho'),
+(3, 55, 3, 'vermelho'),
+(3, 58, 1, 'vermelho'),
+(4, 13, 2, 'vermelho'),
+(4, 18, 3, 'amarelo'),
+(4, 19, 1, 'vermelho'),
+(4, 55, 4, 'vermelho'),
+(5, 13, 3, 'vermelho'),
+(5, 19, 4, 'amarelo'),
+(5, 22, 2, 'amarelo'),
+(5, 58, 1, 'verde'),
+(6, 18, 4, 'vermelho'),
+(6, 19, 1, 'vermelho'),
+(6, 49, 2, 'vermelho'),
+(6, 60, 3, 'vermelho'),
+(7, 12, 1, 'vermelho'),
+(7, 16, 3, 'vermelho'),
+(7, 33, 4, 'vermelho'),
+(7, 43, 2, 'vermelho');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `ajustes`
+--
+
+CREATE TABLE IF NOT EXISTS `ajustes` (
+  `nome` varchar(255) NOT NULL,
+  `valor` varchar(255) default NULL,
+  PRIMARY KEY  (`nome`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `ajustes`
+--
+
+INSERT INTO `ajustes` (`nome`, `valor`) VALUES
+('Onde Usar Idéias', 'Opção 1;Opção 2; Opção 34; Opção 4'),
+('Teste de Opção', 'sim');
 
 -- --------------------------------------------------------
 
@@ -125,20 +229,62 @@ CREATE TABLE IF NOT EXISTS `downloads` (
   `caminho` varchar(255) NOT NULL,
   `uploader` int(10) unsigned NOT NULL,
   `autor` varchar(255) default NULL,
+  `qtddownloads` bigint(20) unsigned NOT NULL default '0',
   PRIMARY KEY  (`iddownloads`),
   KEY `fk_downloads_pessoas1` (`uploader`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Extraindo dados da tabela `downloads`
 --
 
-INSERT INTO `downloads` (`iddownloads`, `arquivo`, `caminho`, `uploader`, `autor`) VALUES
-(5, 'fdsafdsa', 'Joomla_novos_grupos.pdf', 1, 'fdsafdsa'),
-(6, 'uyhtwtrew', 'motherboard_manual_ga-946gm-ds2_(s2)_e.pdf', 1, 'fdsafdsadfsa'),
-(7, 'aaaa', 'adhonep.sql_.zip', 1, 'fdafdsa'),
-(8, 'aaaaaaaaaaaaa', 'UHARC_GUI.2007-01-19_.zip', 1, 'aaa'),
-(12, 'gdsfdasfgdsa', 'CurriculumVitae_Leonardo.pdf', 1, 'ffdafdsa');
+INSERT INTO `downloads` (`iddownloads`, `arquivo`, `caminho`, `uploader`, `autor`, `qtddownloads`) VALUES
+(6, 'uyhtwtrew', 'motherboard_manual_ga-946gm-ds2_(s2)_e.pdf', 1, 'fdsafdsadfsa', 1),
+(7, 'aaaa', 'adhonep.sql_.zip', 1, 'fdafdsa', 3),
+(8, 'aaaaaaaaaaaaa', 'UHARC_GUI.2007-01-19_.zip', 1, 'aaa', 1),
+(12, 'gdsfdasfgdsa', 'CurriculumVitae_Leonardo.pdf', 1, 'ffdafdsa', 1),
+(15, 'Doca', 'texto.txt', 1, 'Autora', 1),
+(16, 'Lixo', 'Contrato_de_Aluguel_-_Floripa.doc', 1, 'Leonardo', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `ideias`
+--
+
+CREATE TABLE IF NOT EXISTS `ideias` (
+  `idideias` int(10) unsigned NOT NULL auto_increment,
+  `ideia` varchar(255) NOT NULL,
+  `ondeusar` varchar(255) NOT NULL,
+  `autor` varchar(255) default NULL,
+  `desc` text,
+  PRIMARY KEY  (`idideias`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+
+--
+-- Extraindo dados da tabela `ideias`
+--
+
+INSERT INTO `ideias` (`idideias`, `ideia`, `ondeusar`, `autor`, `desc`) VALUES
+(2, 'Usar mais o sistema Adhonep', 'Opção 2', 'Leonardoaaaaa', 'f dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asaaaa'),
+(6, 'Teste de idéia', ' Opção 3', 'Autora', 'Teste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaaaaaaaa'),
+(7, 'fdsafdsa', ' Opção 4', 'fdsafdsa', 'fdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsa<br>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'),
+(8, 'fdasfdsa', ' Opção 3', 'fdasfdsa', 'fdasfdsa'),
+(9, 'ggggggg', ' Opção 3', 'aaaaa', 'fdasfdsa fdsa<br>'),
+(10, 'fdas', 'Opção 2', 'ffffff', 'fff'),
+(11, 'aaa', ' Opção 4', 'aaa', 'aa'),
+(12, '121121', ' Opção 3', 'fdsafdsa', 'fdsafdsa'),
+(13, '2222', ' Opção 3', 'fdsafdsa', 'fdsafdsa'),
+(14, 'gfdsgds', ' Opção 3', 'gfdsgds', 'gfdsgfds'),
+(15, 'gfdsgf', ' Opção 3', 'gfdsgf', 'sdgfdsgsd'),
+(16, 'gfdsgfds', 'Opção 2', 'gfsdgfds', 'gfdsgfds'),
+(17, 'gfdsgfds', 'Opção 2', 'gfsdgfds', 'gfdsgfds'),
+(18, 'fdsafds', ' Opção 4', 'fdsafdsa', 'fdsafdsa'),
+(19, 'aaa', ' Opção 4', 'aaaa', 'aaa'),
+(20, 'aaa', ' Opção 4', 'fdsafdsa', 'fdsafdsa'),
+(21, 'bnnnx', ' Opção 3', 'fdafdsa', 'fdafdsa'),
+(22, 'fdasfdsa', ' Opção 3', 'fdsafdas', 'fdafdsa'),
+(23, 'fdsafdsa', ' Opção 3', 'fdsafdsa', 'fdsafdsa');
 
 -- --------------------------------------------------------
 
@@ -278,7 +424,7 @@ CREATE TABLE IF NOT EXISTS `jos_components` (
   `enabled` tinyint(4) NOT NULL default '1',
   PRIMARY KEY  (`id`),
   KEY `parent_option` (`parent`,`option`(32))
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
 
 --
 -- Extraindo dados da tabela `jos_components`
@@ -316,7 +462,9 @@ INSERT INTO `jos_components` (`id`, `name`, `link`, `menuid`, `parent`, `admin_m
 (30, 'Template Manager', '', 0, 0, '', 'Templates', 'com_templates', 0, '', 1, '', 1),
 (31, 'User Manager', '', 0, 0, '', 'Users', 'com_users', 0, '', 1, 'allowUserRegistration=1\nnew_usertype=Registered\nuseractivation=1\nfrontend_userparams=1\n\n', 1),
 (32, 'Cache Manager', '', 0, 0, '', 'Cache', 'com_cache', 0, '', 1, '', 1),
-(33, 'Control Panel', '', 0, 0, '', 'Control Panel', 'com_cpanel', 0, '', 1, '', 1);
+(33, 'Control Panel', '', 0, 0, '', 'Control Panel', 'com_cpanel', 0, '', 1, '', 1),
+(34, 'adhonep', 'option=com_adhonep', 0, 0, 'option=com_adhonep', 'adhonep', 'com_adhonep', 0, 'js/ThemeOffice/component.png', 0, '', 1),
+(35, 'adhonep', '', 0, 34, 'option=com_adhonep', 'adhonep', 'com_adhonep', 0, 'js/ThemeOffice/component.png', 0, '', 1);
 
 -- --------------------------------------------------------
 
@@ -659,7 +807,7 @@ CREATE TABLE IF NOT EXISTS `jos_menu` (
   PRIMARY KEY  (`id`),
   KEY `componentid` (`componentid`,`menutype`,`published`,`access`),
   KEY `menutype` (`menutype`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Extraindo dados da tabela `jos_menu`
@@ -673,7 +821,8 @@ INSERT INTO `jos_menu` (`id`, `menutype`, `name`, `alias`, `link`, `type`, `publ
 (5, 'mainmenu', 'Unidades', 'unidades', 'http://www.google.com', 'url', 1, 0, 0, 0, 3, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'menu_image=-1\n\n', 0, 0, 0),
 (6, 'mainmenu', 'Fotos Eventos', 'fotos-eventos', 'http://www.google.com', 'url', 1, 0, 0, 0, 4, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'menu_image=-1\n\n', 0, 0, 0),
 (7, 'mainmenu', 'Palavra da Liderança', 'palavra-da-lideranca', 'http://www.google.com', 'url', 1, 0, 0, 0, 5, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'menu_image=-1\n\n', 0, 0, 0),
-(8, 'mainmenu', 'Contato', 'contato', '', 'url', 1, 0, 0, 0, 6, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'menu_image=-1\n\n', 0, 0, 0);
+(8, 'mainmenu', 'Contato', 'contato', '', 'url', 1, 0, 0, 0, 6, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'menu_image=-1\n\n', 0, 0, 0),
+(9, 'mainmenu', 'Teste Adhonep', 'teste-adhonep', 'index.php?option=com_adhonep&view=adhonep', 'component', 1, 0, 34, 0, 7, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'page_title=\nshow_page_title=1\npageclass_sfx=\nmenu_image=-1\nsecure=0\n\n', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1060,8 +1209,9 @@ CREATE TABLE IF NOT EXISTS `jos_session` (
 --
 
 INSERT INTO `jos_session` (`username`, `time`, `session_id`, `guest`, `userid`, `usertype`, `gid`, `client_id`, `data`) VALUES
-('', '1253627029', '3439f9cc17ae18e8f5438ca632a98175', 1, 0, '', 0, 0, '__default|a:7:{s:22:"session.client.browser";s:116:"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US) AppleWebKit/532.0 (KHTML, like Gecko) Chrome/3.0.195.21 Safari/532.0";s:15:"session.counter";i:126;s:8:"registry";O:9:"JRegistry":3:{s:17:"_defaultNameSpace";s:7:"session";s:9:"_registry";a:1:{s:7:"session";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:4:"user";O:5:"JUser":19:{s:2:"id";i:0;s:4:"name";N;s:8:"username";N;s:5:"email";N;s:8:"password";N;s:14:"password_clear";s:0:"";s:8:"usertype";N;s:5:"block";N;s:9:"sendEmail";i:0;s:3:"gid";i:0;s:12:"registerDate";N;s:13:"lastvisitDate";N;s:10:"activation";N;s:6:"params";N;s:3:"aid";i:0;s:5:"guest";i:1;s:7:"_params";O:10:"JParameter":7:{s:4:"_raw";s:0:"";s:4:"_xml";N;s:9:"_elements";a:0:{}s:12:"_elementPath";a:1:{i:0;s:71:"C:\\ServidorWEB\\www\\Adhonep Novo\\libraries\\joomla\\html\\parameter\\element";}s:17:"_defaultNameSpace";s:8:"_default";s:9:"_registry";a:1:{s:8:"_default";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:9:"_errorMsg";N;s:7:"_errors";a:0:{}}s:19:"session.timer.start";i:1253616969;s:18:"session.timer.last";i:1253626811;s:17:"session.timer.now";i:1253627029;}'),
-('admin', '1253626665', '6a9f7913fc9b5ae89f7180394d9e4f3a', 0, 62, 'Super Administrator', 25, 1, '__default|a:8:{s:15:"session.counter";i:75;s:19:"session.timer.start";i:1253617504;s:18:"session.timer.last";i:1253626665;s:17:"session.timer.now";i:1253626665;s:22:"session.client.browser";s:116:"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US) AppleWebKit/532.0 (KHTML, like Gecko) Chrome/3.0.195.21 Safari/532.0";s:8:"registry";O:9:"JRegistry":3:{s:17:"_defaultNameSpace";s:7:"session";s:9:"_registry";a:5:{s:7:"session";a:1:{s:4:"data";O:8:"stdClass":0:{}}s:11:"application";a:1:{s:4:"data";O:8:"stdClass":1:{s:4:"lang";s:0:"";}}s:9:"com_menus";a:1:{s:4:"data";O:8:"stdClass":1:{s:8:"menutype";s:8:"mainmenu";}}s:6:"global";a:1:{s:4:"data";O:8:"stdClass":1:{s:4:"list";O:8:"stdClass":1:{s:5:"limit";s:2:"20";}}}s:13:"com_languages";a:1:{s:4:"data";O:8:"stdClass":1:{s:10:"limitstart";i:0;}}}s:7:"_errors";a:0:{}}s:4:"user";O:5:"JUser":19:{s:2:"id";s:2:"62";s:4:"name";s:13:"Administrator";s:8:"username";s:5:"admin";s:5:"email";s:24:"leonardo@devhouse.com.br";s:8:"password";s:65:"67a072816057d6149e207f618c99cbcb:LRS5lmNXhWPNvpSlrmHLnDMHsPUrLWvU";s:14:"password_clear";s:0:"";s:8:"usertype";s:19:"Super Administrator";s:5:"block";s:1:"0";s:9:"sendEmail";s:1:"1";s:3:"gid";s:2:"25";s:12:"registerDate";s:19:"2009-09-21 22:29:09";s:13:"lastvisitDate";s:19:"2009-09-22 02:15:58";s:10:"activation";s:0:"";s:6:"params";s:0:"";s:3:"aid";i:2;s:5:"guest";i:0;s:7:"_params";O:10:"JParameter":7:{s:4:"_raw";s:0:"";s:4:"_xml";N;s:9:"_elements";a:0:{}s:12:"_elementPath";a:1:{i:0;s:71:"C:\\ServidorWEB\\www\\Adhonep Novo\\libraries\\joomla\\html\\parameter\\element";}s:17:"_defaultNameSpace";s:8:"_default";s:9:"_registry";a:1:{s:8:"_default";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:9:"_errorMsg";N;s:7:"_errors";a:0:{}}s:13:"session.token";s:32:"d2e0d020a041aa4cc0a65203cdbbdee5";}');
+('', '1255111474', 'd057193273c8124f0e197ab14cecec9f', 1, 0, '', 0, 0, '__default|a:7:{s:15:"session.counter";i:4;s:19:"session.timer.start";i:1255111368;s:18:"session.timer.last";i:1255111473;s:17:"session.timer.now";i:1255111474;s:22:"session.client.browser";s:109:"Mozilla/5.0 (Windows; U; Windows NT 6.0; pt-BR; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)";s:8:"registry";O:9:"JRegistry":3:{s:17:"_defaultNameSpace";s:7:"session";s:9:"_registry";a:1:{s:7:"session";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:4:"user";O:5:"JUser":19:{s:2:"id";i:0;s:4:"name";N;s:8:"username";N;s:5:"email";N;s:8:"password";N;s:14:"password_clear";s:0:"";s:8:"usertype";N;s:5:"block";N;s:9:"sendEmail";i:0;s:3:"gid";i:0;s:12:"registerDate";N;s:13:"lastvisitDate";N;s:10:"activation";N;s:6:"params";N;s:3:"aid";i:0;s:5:"guest";i:1;s:7:"_params";O:10:"JParameter":7:{s:4:"_raw";s:0:"";s:4:"_xml";N;s:9:"_elements";a:0:{}s:12:"_elementPath";a:1:{i:0;s:66:"C:\\ServidorWEB\\www\\adhonep\\libraries\\joomla\\html\\parameter\\element";}s:17:"_defaultNameSpace";s:8:"_default";s:9:"_registry";a:1:{s:8:"_default";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:9:"_errorMsg";N;s:7:"_errors";a:0:{}}}'),
+('', '1255110943', 'a2cc21187ecb5e77bcd9316e514df3ee', 1, 0, '', 0, 0, '__default|a:7:{s:15:"session.counter";i:3;s:19:"session.timer.start";i:1255110858;s:18:"session.timer.last";i:1255110942;s:17:"session.timer.now";i:1255110943;s:22:"session.client.browser";s:109:"Mozilla/5.0 (Windows; U; Windows NT 6.0; pt-BR; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)";s:8:"registry";O:9:"JRegistry":3:{s:17:"_defaultNameSpace";s:7:"session";s:9:"_registry";a:1:{s:7:"session";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:4:"user";O:5:"JUser":19:{s:2:"id";i:0;s:4:"name";N;s:8:"username";N;s:5:"email";N;s:8:"password";N;s:14:"password_clear";s:0:"";s:8:"usertype";N;s:5:"block";N;s:9:"sendEmail";i:0;s:3:"gid";i:0;s:12:"registerDate";N;s:13:"lastvisitDate";N;s:10:"activation";N;s:6:"params";N;s:3:"aid";i:0;s:5:"guest";i:1;s:7:"_params";O:10:"JParameter":7:{s:4:"_raw";s:0:"";s:4:"_xml";N;s:9:"_elements";a:0:{}s:12:"_elementPath";a:1:{i:0;s:66:"C:\\ServidorWEB\\www\\adhonep\\libraries\\joomla\\html\\parameter\\element";}s:17:"_defaultNameSpace";s:8:"_default";s:9:"_registry";a:1:{s:8:"_default";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:9:"_errorMsg";N;s:7:"_errors";a:0:{}}}'),
+('', '1255106141', 'f453ad4119ea97f56504110fd1fe41da', 1, 0, '', 0, 0, '__default|a:7:{s:15:"session.counter";i:30;s:19:"session.timer.start";i:1255105038;s:18:"session.timer.last";i:1255106139;s:17:"session.timer.now";i:1255106141;s:22:"session.client.browser";s:109:"Mozilla/5.0 (Windows; U; Windows NT 6.0; pt-BR; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)";s:8:"registry";O:9:"JRegistry":3:{s:17:"_defaultNameSpace";s:7:"session";s:9:"_registry";a:1:{s:7:"session";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:4:"user";O:5:"JUser":19:{s:2:"id";i:0;s:4:"name";N;s:8:"username";N;s:5:"email";N;s:8:"password";N;s:14:"password_clear";s:0:"";s:8:"usertype";N;s:5:"block";N;s:9:"sendEmail";i:0;s:3:"gid";i:0;s:12:"registerDate";N;s:13:"lastvisitDate";N;s:10:"activation";N;s:6:"params";N;s:3:"aid";i:0;s:5:"guest";i:1;s:7:"_params";O:10:"JParameter":7:{s:4:"_raw";s:0:"";s:4:"_xml";N;s:9:"_elements";a:0:{}s:12:"_elementPath";a:1:{i:0;s:66:"C:\\ServidorWEB\\www\\adhonep\\libraries\\joomla\\html\\parameter\\element";}s:17:"_defaultNameSpace";s:8:"_default";s:9:"_registry";a:1:{s:8:"_default";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:9:"_errorMsg";N;s:7:"_errors";a:0:{}}}');
 
 -- --------------------------------------------------------
 
@@ -1134,7 +1284,7 @@ CREATE TABLE IF NOT EXISTS `jos_users` (
 --
 
 INSERT INTO `jos_users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
-(62, 'Administrator', 'admin', 'leonardo@devhouse.com.br', '67a072816057d6149e207f618c99cbcb:LRS5lmNXhWPNvpSlrmHLnDMHsPUrLWvU', 'Super Administrator', 0, 1, 25, '2009-09-21 22:29:09', '2009-09-22 11:05:14', '', '');
+(62, 'Administrator', 'admin', 'leonardo@devhouse.com.br', '67a072816057d6149e207f618c99cbcb:LRS5lmNXhWPNvpSlrmHLnDMHsPUrLWvU', 'Super Administrator', 0, 1, 25, '2009-09-21 22:29:09', '2009-10-08 22:50:15', '', '');
 
 -- --------------------------------------------------------
 
@@ -1186,7 +1336,7 @@ CREATE TABLE IF NOT EXISTS `locais` (
   PRIMARY KEY  (`idlocais`),
   KEY `fk_locais_pessoas1` (`idpessoas`),
   KEY `fk_locais_cidades1` (`idcidades`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Extraindo dados da tabela `locais`
@@ -1202,7 +1352,10 @@ INSERT INTO `locais` (`idlocais`, `local`, `endereco`, `bairro`, `telefone`, `de
 (8, 'tryreytre', 'gh dfsgfds ', ' gsdf gdsf ', '5432432', 'abacedkajfdlsa<br>', 13, 6),
 (9, 'gfsgfds', 'fdsaf dsaf dsa fdsaf dsa', 'f dsa fdsa fds', '543', '&nbsp;fdsafdsaf dsa fdsa<br>', 42, 6),
 (10, 'aaaaaaaaaaaaa', 'fdsafdsafdsa', 'fdsafdsafdsafds', '(47) 3026-6908', 'afdsafdsafdsafdsadsaf', 11, 1),
-(11, 'dffdsa', 'fdsafdsa', 'fdsaf', '(30) 2669-0808', 'dsafdsafdsafdsa', 42, 7);
+(11, 'dffdsa', 'fdsafdsa', 'fdsaf', '(30) 2669-0808', 'dsafdsafdsafdsa', 42, 7),
+(12, 'a', 'fdsafdsa', 'fdsafdsa', '(54) 3214-3124', 'fdafdsa', 22, 10),
+(13, 'aa', 'fdsafdsa', 'fdsafd', '(34) 2143-1243', 'safdsafsa', 61, 1),
+(14, 'aaaa', 'fdafdsafdsafd', 'afdsafdas', '(43) 2143-2143', 'fdsafdafsa', 13, 1);
 
 -- --------------------------------------------------------
 
@@ -1215,13 +1368,14 @@ CREATE TABLE IF NOT EXISTS `permissoes` (
   `permissao` varchar(255) character set latin1 default NULL,
   PRIMARY KEY  (`idpermissoes`),
   KEY `permissao` (`permissao`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Extraindo dados da tabela `permissoes`
 --
 
 INSERT INTO `permissoes` (`idpermissoes`, `permissao`) VALUES
+(8, 'administrador'),
 (1, 'agenda'),
 (2, 'cidades'),
 (3, 'downloads'),
@@ -1248,66 +1402,79 @@ CREATE TABLE IF NOT EXISTS `pessoas` (
   `idcidades` int(10) unsigned NOT NULL,
   `desc` text character set latin1,
   `acesso` tinyint(1) NOT NULL,
-  `permissoes` varchar(255) character set latin1 default NULL,
   PRIMARY KEY  (`idpessoas`),
   UNIQUE KEY `email` (`email`),
   KEY `fk_pessoas_cidades1` (`idcidades`),
   KEY `nome` (`nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Pessoas e Usuários do sistema' AUTO_INCREMENT=63 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Pessoas e Usuários do sistema' AUTO_INCREMENT=86 ;
 
 --
 -- Extraindo dados da tabela `pessoas`
 --
 
-INSERT INTO `pessoas` (`idpessoas`, `nome`, `email`, `senha`, `telefone`, `celular`, `endereco`, `bairro`, `idcidades`, `desc`, `acesso`, `permissoes`) VALUES
-(1, 'Leonardo Lima de Vasconcellos', 'leonardo@devhouse.com.br', '0bc5b422a348b5958aacba5f863dd57f40ced581', '4730266908', '4799442321', 'Rua Orestes Guimarães, 225', 'Centro', 5, 'Programador Web', 1, 'permisso'),
-(2, 'Denise Alcântara Bezzera de Lima', 'denise_jlle@hotmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '30266908', '99610414', 'Rua Orestes Guimarães, 225', 'Centro', 1, 'Minha Mãe', 1, NULL),
-(3, 'Rafael Lima de Vasconcellos', 'rafael.lima@totvs.com.br', 'da39a3ee5e6b4b0d3255bfef95601890afd80709', '33380232', '781613314', '', '', 1, '', 1, ''),
-(4, 'Ismar M.', 'ismar@ldi.com.br', '27f63f5204217f3f80adffeeb92351aa5d9b2c25', '30303030', '99999999', 'Rua Dona Francisca, 5347', 'Bairro', 1, 'Descrição Ismar', 1, NULL),
-(5, 'Luis', 'luiz.camargo@agenciadmg.com.br', '123456', '33333333', '99999999', 'Rua Sem Nome, sn', 'Centro', 1, 'Descrição', 1, NULL),
-(6, 'Victor Castoldi Vasconcellos', 'victor.castoldi@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '30303', '9449459', 'Rua sem nome, sn', 'Bairro', 1, '', 0, 'Permissões'),
-(7, 'João da Silva', 'joao@dasilva.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4732184329', '3243242', 'Rua sem nome,sn', 'bairro', 1, '', 0, 'Permissões'),
-(8, 'Nome', 'email@email.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '46454645', '456456465', 'Rua Sem Nome, sn', 'Bairro', 1, 'fdsafdsafdsa', 0, 'Permisso'),
-(9, 'Janjão', 'janjao@email.com', '7751a23fa55170a57e90374df13a3ab78efe0e99', '78908', '989987987', 'rua tal, numero tal', 'Bairro', 1, '', 1, 'Permissões'),
-(11, 'Davi Golias', 'fdsajl@fjdaaaaa.com', '7751a23fa55170a57e90374df13a3ab78efe0e99', '57328473', '987459387', 'fjdsaklfjd123', 'Bairro', 2, '', 1, 'Permisso'),
-(12, 'Grand Master Flash', 'grand@masterflash.com', '1bdc12f0f29da10f6b637646821c0c56e8c48559', '0987097', '98798798', 'fdsaçl fdjskla flkdsaj flksd', 'fdjsaklfjdsl', 1, '', 1, 'Permissões'),
-(13, 'Anacleto Brocolli', 'anacleto@brocoli.com', 'cd3f0c85b158c08a2b113464991810cf2cdfc387', '5432342', '98797897', 'fhdsak fhdsa fj', 'fd salkfjds al', 1, '<br>', 1, 'Permisso'),
-(15, 'Edimilson Creison', 'edmilson@creison.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '5432542', '987987', 'fdsafdsafdsa, sn', 'fdsafdsa', 1, '', 1, 'Permisso'),
-(16, 'Juliano Barbosa', 'juliano@barbosa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '98798', '98798789', 'fdsafdsa', 'fdsafdsa', 1, '', 1, 'Permissões'),
-(17, 'Julian Moore', 'julian@moore.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '456456', '654654', 'fjad slakfj dsaçlkfj dsalf jdslaj', 'Bairro', 1, '', 1, 'Permissões'),
-(18, 'Amina Munsta', 'amina@munsta.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '09809808', '9674987', 'ds flakfj dlksafj dlksa fldksa jflkdsaj lfd jalkf dlksa djflka jfldaj flkdsa jflkd jsaklf jdaskl fjdklsa fjdlksafdsa fdsa fdsa fdsa fdsa fdas fdsa  fdsa fdsa fdsa fdsa fdsaf dsa fdsa fdsaf dsa fdsaf dsaf  dsaf dsa fdsa ', 'Bairro', 7, 'fdsafdsafdsafdsafds', 0, 'Permisso'),
-(19, 'Anastacia Velasco', 'ana@velasco.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '777777777', '98798498489', 'fdsafdsa fdsa fdsa fdsa fdsa', 'f dsa fdsa fdas fdas dsa', 1, 'dsa <a href="http://www.google.com">fdsaf </a>dsa <b>fdsa </b>fdsa <span style="background-color: rgb(255, 255, 0);">fdsa </span>fdsa <a href="http://www.google.com">fdsa </a>fd <font color="#99cc00">asf </font>dasf dsa dsa d<br>', 1, 'Permisso'),
-(20, 'Ludimila Kadinski', 'lulu@kaka.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '43214321', '43214322', 'fdsafdsafdsafdsa', 'fdsafdsafdsa', 1, 'fdsa <a href="http://www.google.com/">fdsaf </a>dsa <b>fdsa </b>fdsa <span style="background-color: rgb(255, 255, 0);">fdsa </span>fdsa fdsa fd <font color="#99cc00">asf </font>dasf dsa dsa d', 0, 'Permisso'),
-(21, 'Ratazana', 'rat@azana.com.br', '7e240de74fb1ed08fa08d38063f6a6a91462a815', '432432432', '432432', 'fdsafdsafdsafdsafdsafdsa', 'fdsafdsa', 1, 'dsafdsaf<font color="#ff6600">dsafdsa</font>fdsa', 1, 'Permisso'),
-(22, 'All the fear I have', 'fear@tdv.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123456', '98797987', 'endereço 124', 'América', 6, '<img src="images/ajax-loader.gif" vspace="6" align="Esquerda" hspace="6"><br><br><b>All </b><font color="#ff6600">the </font><i>fear </i>I <font color="#ff0000">have </font>is <font color="#339966">only </font><a href="http://www.tdv.com">inside </a><span style="background-color: rgb(255, 102, 0);">my </span><font color="#00ffff">mind</font><br>', 1, 'Permisso'),
-(27, 'fdsafdsafd', 'afdsa@fdjsla.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '54325432', '12312', 'gfdsgfdsg', 'gfdsgfds', 4, 'A descrição está escrita aqui.<br>', 1, 'Permisso'),
-(29, 'fjdkslajf', 'leoj@fjdsl.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '789797', '1234456', 'vsadsafdsafdsaf', 'fdsafdsaf', 1, 'dsafdsafdsa', 1, 'Permisso'),
-(31, 'fjdsakljfdls', 'fhdsalk@fvjdslka.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1321321', '14564654', 'fdasfdsafdsaf', 'dsafdsafdsaf', 1, 'dsafdsafads', 1, 'Permisso'),
-(33, 'Fausta', 'sadfds@fjdls.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '5465465', '654564', 'fdsafdsafdsa', 'fdsafdsafd', 1, 'ffff', 1, 'Permisso'),
-(36, 'fdsafdsa', '123@jfdls.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4321321', '1431243', 'fdsafdsafdsa', 'fdsafdsa', 2, 'fdsafdsaf', 1, 'Permisso'),
-(40, 'fdsafdsafdsafdsa', 'fjds@dlfkdsa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4321431', '43214321', 'fdsafdsa', 'fdsafdsa', 4, 'fdsafdsa', 0, 'Permisso'),
-(41, 'Joey Ramone', 'fddjsajfdj@jfjfjfjfjfjjffjjf.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '43432432', '432432', 'fdsafdsafdsa, 123', 'bairro', 1, 'dsafd safd asf dsa fdsa fdsa fdsa <br>', 1, 'Permisso'),
-(42, 'Bruna Bitencourt', 'bruna@bit.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4325432432', '432432432', 'fdsafdsafdsaf', 'fdsafdsa', 1, 'yterytreuytreytre', 1, 'Permisso'),
-(43, 'HP Lovecraft', 'hp@lovecraft.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '564654', '456465465', 'fdsafdsafdsafdsafdsa123', 'fdsafdsafdsa', 1, 'aaaaaaaaaaaaaaaaa', 1, 'Permisso'),
-(44, 'KKK', 'fdsafaaaaddddsa@fdsajlf.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123132', '4564654', 'fdsafdsa', 'fdasfdsa', 1, '?fdsafdsa', 1, 'Permisso'),
-(45, 'Camila Rodrigues', 'camila@rodrigues.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4730335589', '4799748553', 'Rua João Colin, 2345', 'América', 1, '<img src="images/imagens/camila_rodrigues.jpg" align="left" hspace="6" vspace="6">?Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse facilisis ligula sed ligula luctus congue. Fusce venenatis, lorem vitae porttitor lobortis, ipsum nunc facilisis ipsum, ac feugiat orci purus id velit. Maecenas vel lorem non magna eleifend varius et vel dui. Maecenas ut quam velit, ut gravida dolor. Aenean at enim risus, non feugiat ipsum. Nunc bibendum convallis tellus, porttitor dignissim leo fringilla ac. Curabitur congue enim ut quam placerat in interdum massa vestibulum. Duis sollicitudin elit et magna molestie vitae gravida est consequat. Quisque placerat, ante sit amet posuere suscipit, nibh magna posuere libero, rutrum consectetur elit nulla vitae nisl. Sed interdum laoreet justo vestibulum malesuada. Donec mattis volutpat mattis.<div><br></div><div>Etiam vitae sollicitudin lorem. Ut rhoncus purus eu ipsum bibendum tempor. Vestibulum scelerisque laoreet luctus. Aenean vehicula porttitor enim, eu bibendum diam blandit et. Proin sem libero, dapibus sit amet suscipit non, commodo eget nisl. Vivamus vitae arcu nisl, euismod egestas neque. In sed iaculis nulla. Quisque porttitor erat et ligula rutrum mollis pretium mi scelerisque. Mauris ornare porttitor volutpat. Donec eget quam mauris, eu aliquet massa. In dictum auctor dolor, a aliquam arcu mattis sit amet. Morbi et augue non turpis blandit convallis. Praesent at augue sapien, eu gravida leo. Morbi fringilla rutrum cursus. Etiam vitae ante et odio adipiscing convallis eu at lectus. Aenean auctor tortor ut urna egestas a tincidunt nisi commodo. Sed sed diam at orci elementum adipiscing.</div><div><br></div><div>Proin ut felis ut nisl sodales porta. Donec in eros vel nisi aliquet egestas gravida aliquet massa. Suspendisse facilisis viverra purus, vitae malesuada tortor vestibulum nec. Suspendisse quis tincidunt leo. Aliquam cursus commodo neque non suscipit. In molestie sagittis risus, sed euismod arcu lobortis quis. Integer et velit et ante semper scelerisque sed at tellus. Phasellus ornare dictum odio, at feugiat turpis venenatis id. Cras sed felis nunc. Etiam magna leo, ullamcorper quis ultricies eu, ultrices ut nisl. In hac habitasse platea dictumst. Vivamus ultrices, orci et ultricies tincidunt, mauris magna egestas leo, eu molestie purus metus id nibh. Nulla id ultricies magna. Duis tincidunt, dui vestibulum sagittis tempus, lorem felis suscipit sapien, ut porttitor dui urna non nibh.</div><div><br></div><div>Integer a turpis lorem. Pellentesque ac ullamcorper neque. Sed in turpis a dolor imperdiet egestas. Integer porttitor pulvinar lacinia. Sed nibh turpis, fermentum a venenatis ac, aliquet eu nisi. Nam arcu lectus, dignissim vel scelerisque non, facilisis non arcu. Vestibulum quis nibh dui. Nunc non nunc sed odio tincidunt hendrerit sollicitudin sit amet sem. Nunc congue pulvinar hendrerit. Vestibulum ut felis sapien, quis tincidunt erat. Nullam interdum purus ut eros consequat dignissim. Duis vehicula vestibulum tortor, et porttitor odio elementum at. Praesent vel tortor non orci lacinia pellentesque ac vitae massa. Proin eget facilisis risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum egestas, eros ac tincidunt pretium, leo dui pellentesque nisl, non hendrerit libero odio ac eros. Nam posuere, urna non cursus vulputate, eros eros luctus ligula, nec congue tortor orci at felis.</div><div><br></div><div>Aliquam nunc dolor, congue et commodo non, laoreet sit amet orci. Donec euismod lobortis dictum. Sed malesuada fringilla sem, a facilisis justo scelerisque et. Vivamus rutrum lectus et dui hendrerit facilisis. Vestibulum enim massa, fermentum et luctus sed, suscipit a felis. Sed aliquet volutpat pharetra. Aliquam rutrum, lectus at varius rutrum, ante leo sollicitudin magna, sit amet dapibus orci erat vel quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean id dignissim velit. Maecenas tristique nisi erat. Nunc dapibus aliquam nulla, at placerat leo auctor vel. Quisque feugiat urna quis libero facilisis volutpat.&nbsp;</div>', 1, 'Permisso'),
-(46, 'Oswaldo Marques', 'oswaldo@marques.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(41) 2323-5465', '(41) 9955-2322', 'Rua sem nome,sn', 'Batel', 9, 'fdsafdsadsafsa', 1, 'Permisso'),
-(47, 'fdsafdsa', 'fdsafd@fdsacc.net', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(63) 2563-2564', '(24) 3243-2432', 'fdsafdsafdsa', 'fdsafdsa', 9, 'fdsafdsafdsa', 1, 'Permisso'),
-(48, 'qqqqqqqqq', 'qq@qaqq.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(63) 4523-5432', '(23) 3223-3421', 'afdsafdsafdsa', 'fdsafdsa', 2, 'fdsafdsafdsa', 1, 'Permisso'),
-(49, 'aaaaaaaaaaa', 'gfdsgfs@ggghhhjjkkj.org', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2143-2143', '(43) 2432-1543', 'fdsafdsafdsa', 'fdsafdsa', 3, 'fdsafdsafdsafd', 1, 'Permisso'),
-(50, 'bbbbbbbbb', 'bb@bb.net', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2432-1423', '(23) 4324-3242', 'fdsafdsafdsafdsafdsafdsa', 'fdsafdsafdsa', 4, 'fdsa fdsa fdsa fda f dsa fdsa fdsa<br>', 1, 'Permisso'),
-(51, 'cccccccc', 'ccc@ccccc.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2143-1431', '(43) 2412-4321', 'fdsadsafdsafdsa', 'fdsafdsa', 6, 'hgagafgda sfdsa fdsa fdsa fdsa fdsa<br>', 1, 'Permisso'),
-(52, 'ddddd', 'ddd@fdsa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2143-2143', '(32) 1432-1432', 'fdsafdsafdsa', 'fdsafdsafdsa', 5, 'safdsafdsafdsafdsafdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa <br>', 1, 'Permisso'),
-(53, 'Monica', 'm@monica.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2451-3243', '(31) 2432-1431', 'fdsa fdsa fdsaf dsa fdsa', ' fdsa fdsa fdsa', 2, 'f dsafdsa fdsa fdsa fdas fdsa fdsa <br>', 1, 'Permisso'),
-(54, 'Robert Langdon', 'robert@langdon.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(45) 6456-4564', '(45) 6456-4654', 'fdsafdsafdsa', 'fdsafdsa', 7, 'f dsafd <font color="#ff0000">safdsa </font>fdsa <span style="background-color: rgb(153, 204, 0);">fdsa </span>fdsa <b>fdsaf </b>dsa<br>', 1, 'Permisso'),
-(55, 'Altamiro Lima', 'altamiro@lima.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(45) 6464-5646', '(64) 6546-5446', 'fdsaf dsa dfsa fdsa fdsa', 'fdsafdsa', 7, '<b>fdsa </b>fdsa <font color="#ff0000">fdsaf </font>dsa fdsa <span style="background-color: rgb(255, 255, 0);">fdsa </span>fsa<br>', 1, 'Permisso'),
-(56, 'Jhon Lenon', 'john@beatles.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(56) 4654-6465', '(46) 4654-6546', 'fdsafdsafdsa', 'fdsafdsafdsa', 4, 'fdsaf dsa fdsa fdsa fdsa<br>', 1, 'Permisso'),
-(57, 'Ronaldinho', 'ronaldo@selecao.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(45) 4645-6465', '(56) 4646-5464', 'fdsafdsafdsa', 'fdsafdsa', 5, 'fdsafdsa fdsa fdsa fdsa fdsa fdsa fdsa<br>', 1, 'Permisso'),
-(58, 'Abadia Coristalina', 'abadia@fjdks.com', '53b722fe6a32e35699af061920916a4b927f4a61', '(45) 6464-6546', '(65) 4465-4564', 'fdsafdsafda', 'fdsafdsaf', 9, '<img src="images/add.png" vspace="6" align="left" hspace="6">fd asfd safdas fdsah tequ hg hgs htda hdat<img src="images/imagens/camila_rodrigues.jpg" vspace="6" align="right" hspace="6">', 0, 'Permisso'),
-(59, 'aaF', 'a@a.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(32) 1432-1431', '(43) 2143-2143', 'fdsafdsaf', 'fdasfdsa', 5, 'fdsa fdsa fdsa fdsa fdsaf dsaf dsaf dsa fdsa fds<br>', 1, 'Permisso'),
-(60, 'aa', 'aa@fdsa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(23) 4153-2143', '(65) 4654-5665', '1231d3saf1d3safdsa', 'fdafdsa', 9, 'fdsafdas fdsoaf ldkçsaj fdsaj fdsaj fçldsaj fçldasj flçkds jalkfj dslçaj <br>', 1, 'Permisso'),
-(61, 'aaa', 'aaa@fdasfdsa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(54) 3254-3254', '(52) 4325-4325', 'fdsafdsafdsafd', 'fdsafdsa', 2, 'fdsafdsafdsafdsa', 1, 'Permisso'),
-(62, 'b', 'afdasf@fdasfs.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(54) 3254-3254', '(54) 3254-3254', 'afdsafdsa fdsa fdfdas ', 'fdasfdsafdsa', 2, '&nbsp;fdsaf dsaf dsaf dsa fdsa fdsa fdsa fdsa<br>', 1, 'Permisso');
+INSERT INTO `pessoas` (`idpessoas`, `nome`, `email`, `senha`, `telefone`, `celular`, `endereco`, `bairro`, `idcidades`, `desc`, `acesso`) VALUES
+(1, 'Leonardo Lima de Vasconcellos', 'leonardo@devhouse.com.br', '0bc5b422a348b5958aacba5f863dd57f40ced581', '4730266908', '4799442321', 'Rua Orestes Guimarães, 225', 'Centro', 5, 'Programador Web', 1),
+(2, 'Denise Alcântara Bezzera de Lima', 'denise_jlle@hotmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '30266908', '99610414', 'Rua Orestes Guimarães, 225', 'Centro', 1, 'Minha Mãe', 1),
+(3, 'Rafael Lima de Vasconcellos', 'rafael.lima@totvs.com.br', 'da39a3ee5e6b4b0d3255bfef95601890afd80709', '33380232', '781613314', '', '', 1, '', 1),
+(4, 'Ismar M.', 'ismar@ldi.com.br', '27f63f5204217f3f80adffeeb92351aa5d9b2c25', '30303030', '99999999', 'Rua Dona Francisca, 5347', 'Bairro', 1, 'Descrição Ismar', 1),
+(5, 'Luis', 'luiz.camargo@agenciadmg.com.br', '123456', '33333333', '99999999', 'Rua Sem Nome, sn', 'Centro', 1, 'Descrição', 1),
+(6, 'Victor Castoldi Vasconcellos', 'victor.castoldi@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '30303', '9449459', 'Rua sem nome, sn', 'Bairro', 1, '', 0),
+(7, 'João da Silva', 'joao@dasilva.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4732184329', '3243242', 'Rua sem nome,sn', 'bairro', 1, '', 0),
+(8, 'Nome', 'email@email.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '46454645', '456456465', 'Rua Sem Nome, sn', 'Bairro', 1, 'fdsafdsafdsa', 0),
+(9, 'Janjão', 'janjao@email.com', '7751a23fa55170a57e90374df13a3ab78efe0e99', '78908', '989987987', 'rua tal, numero tal', 'Bairro', 1, '', 1),
+(11, 'Davi Golias', 'fdsajl@fjdaaaaa.com', '7751a23fa55170a57e90374df13a3ab78efe0e99', '57328473', '987459387', 'fjdsaklfjd123', 'Bairro', 2, '', 1),
+(12, 'Grand Master Flash', 'grand@masterflash.com', '1bdc12f0f29da10f6b637646821c0c56e8c48559', '0987097', '98798798', 'fdsaçl fdjskla flkdsaj flksd', 'fdjsaklfjdsl', 1, '', 1),
+(13, 'Anacleto Brocolli', 'anacleto@brocoli.com', 'cd3f0c85b158c08a2b113464991810cf2cdfc387', '5432342', '987978975', 'fhdsak fhdsa fj', 'fd salkfjds al', 1, '<br>', 1),
+(15, 'Edimilson Creison', 'edmilson@creison.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '5432542', '987987', 'fdsafdsafdsa, sn', 'fdsafdsa', 1, '', 1),
+(16, 'Juliano Barbosa', 'juliano@barbosa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '98798', '98798789', 'fdsafdsa', 'fdsafdsa', 1, '', 1),
+(17, 'Julian Moore', 'julian@moore.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '456456', '654654', 'fjad slakfj dsaçlkfj dsalf jdslaj', 'Bairro', 1, '', 1),
+(18, 'Amina Munsta', 'amina@munsta.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '09809808', '9674987', 'ds flakfj dlksafj dlksa fldksa jflkdsaj lfd jalkf dlksa djflka jfldaj flkdsa jflkd jsaklf jdaskl fjdklsa fjdlksafdsa fdsa fdsa fdsa fdsa fdas fdsa  fdsa fdsa fdsa fdsa fdsaf dsa fdsa fdsaf dsa fdsaf dsaf  dsaf dsa fdsa ', 'Bairro', 7, 'fdsafdsafdsafdsafds', 1),
+(19, 'Anastacia Velasco', 'ana@velasco.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '777777777', '98798498489', 'fdsafdsa fdsa fdsa fdsa fdsa', 'f dsa fdsa fdas fdas dsa', 1, 'dsa <a href="http://www.google.com">fdsaf </a>dsa <b>fdsa </b>fdsa <span style="background-color: rgb(255, 255, 0);">fdsa </span>fdsa <a href="http://www.google.com">fdsa </a>fd <font color="#99cc00">asf </font>dasf dsa dsa d<br>', 1),
+(20, 'Ludimila Kadinski', 'lulu@kaka.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '43214321', '43214322', 'fdsafdsafdsafdsa', 'fdsafdsafdsa', 1, 'fdsa <a href="http://www.google.com/">fdsaf </a>dsa <b>fdsa </b>fdsa <span style="background-color: rgb(255, 255, 0);">fdsa </span>fdsa fdsa fd <font color="#99cc00">asf </font>dasf dsa dsa d', 0),
+(21, 'Ratazana', 'rat@azana.com.br', '7e240de74fb1ed08fa08d38063f6a6a91462a815', '432432432', '432432', 'fdsafdsafdsafdsafdsafdsa', 'fdsafdsa', 1, 'dsafdsaf<font color="#ff6600">dsafdsa</font>fdsa', 1),
+(22, 'All the fear I have INSIDE', 'fear@tdv.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123456', '98797987', 'endereço 124', 'América', 6, '<img src="images/ajax-loader.gif" vspace="6" align="Esquerda" hspace="6"><br><br><b>All </b><font color="#ff6600">the </font><i>fear </i>I <font color="#ff0000">have </font>is <font color="#339966">only </font><a href="http://www.tdv.com">inside </a><span style="background-color: rgb(255, 102, 0);">my </span><font color="#00ffff">mind</font><br>', 0),
+(27, 'fdsafdsafd', 'afdsa@fdjsla.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '54325432', '12312', 'gfdsgfdsg', 'gfdsgfds', 4, 'A descrição está escrita aqui.<br>', 1),
+(29, 'fjdkslajf', 'leoj@fjdsl.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '789797', '1234456', 'vsadsafdsafdsaf', 'fdsafdsaf', 1, 'dsafdsafdsa', 1),
+(31, 'fjdsakljfdls', 'fhdsalk@fvjdslka.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1321321', '14564654', 'fdasfdsafdsaf', 'dsafdsafdsaf', 1, 'dsafdsafads', 1),
+(33, 'Fausta', 'sadfds@fjdls.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '5465465', '654564', 'fdsafdsafdsa', 'fdsafdsafd', 1, 'ffff', 1),
+(36, 'fdsafdsa', '123@jfdls.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4321321', '1431243', 'fdsafdsafdsa', 'fdsafdsa', 2, 'fdsafdsaf', 1),
+(40, 'fdsafdsafdsafdsa', 'fjds@dlfkdsa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4321431', '43214321', 'fdsafdsa', 'fdsafdsa', 4, 'fdsafdsa', 0),
+(41, 'Joey Ramone', 'fddjsajfdj@jfjfjfjfjfjjffjjf.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '43432432', '432432', 'fdsafdsafdsa, 123', 'bairro', 1, 'dsafd safd asf dsa fdsa fdsa fdsa <br>', 1),
+(42, 'Bruna Bitencourt', 'bruna@bit.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4325432432', '432432432', 'fdsafdsafdsaf', 'fdsafdsa', 1, 'yterytreuytreytre', 1),
+(43, 'HP Lovecraft', 'hp@lovecraft.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '564654', '456465465', 'fdsafdsafdsafdsafdsa123', 'fdsafdsafdsa', 1, 'aaaaaaaaaaaaaaaaa', 1),
+(44, 'KKK', 'fdsafaaaaddddsa@fdsajlf.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123132', '4564654', 'fdsafdsa', 'fdasfdsa', 1, '?fdsafdsa', 1),
+(45, 'Camila Rodrigues', 'camila@rodrigues.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4730335589', '4799748553', 'Rua João Colin, 2345', 'América', 1, '<img src="images/imagens/camila_rodrigues.jpg" align="left" hspace="6" vspace="6">?Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse facilisis ligula sed ligula luctus congue. Fusce venenatis, lorem vitae porttitor lobortis, ipsum nunc facilisis ipsum, ac feugiat orci purus id velit. Maecenas vel lorem non magna eleifend varius et vel dui. Maecenas ut quam velit, ut gravida dolor. Aenean at enim risus, non feugiat ipsum. Nunc bibendum convallis tellus, porttitor dignissim leo fringilla ac. Curabitur congue enim ut quam placerat in interdum massa vestibulum. Duis sollicitudin elit et magna molestie vitae gravida est consequat. Quisque placerat, ante sit amet posuere suscipit, nibh magna posuere libero, rutrum consectetur elit nulla vitae nisl. Sed interdum laoreet justo vestibulum malesuada. Donec mattis volutpat mattis.<div><br></div><div>Etiam vitae sollicitudin lorem. Ut rhoncus purus eu ipsum bibendum tempor. Vestibulum scelerisque laoreet luctus. Aenean vehicula porttitor enim, eu bibendum diam blandit et. Proin sem libero, dapibus sit amet suscipit non, commodo eget nisl. Vivamus vitae arcu nisl, euismod egestas neque. In sed iaculis nulla. Quisque porttitor erat et ligula rutrum mollis pretium mi scelerisque. Mauris ornare porttitor volutpat. Donec eget quam mauris, eu aliquet massa. In dictum auctor dolor, a aliquam arcu mattis sit amet. Morbi et augue non turpis blandit convallis. Praesent at augue sapien, eu gravida leo. Morbi fringilla rutrum cursus. Etiam vitae ante et odio adipiscing convallis eu at lectus. Aenean auctor tortor ut urna egestas a tincidunt nisi commodo. Sed sed diam at orci elementum adipiscing.</div><div><br></div><div>Proin ut felis ut nisl sodales porta. Donec in eros vel nisi aliquet egestas gravida aliquet massa. Suspendisse facilisis viverra purus, vitae malesuada tortor vestibulum nec. Suspendisse quis tincidunt leo. Aliquam cursus commodo neque non suscipit. In molestie sagittis risus, sed euismod arcu lobortis quis. Integer et velit et ante semper scelerisque sed at tellus. Phasellus ornare dictum odio, at feugiat turpis venenatis id. Cras sed felis nunc. Etiam magna leo, ullamcorper quis ultricies eu, ultrices ut nisl. In hac habitasse platea dictumst. Vivamus ultrices, orci et ultricies tincidunt, mauris magna egestas leo, eu molestie purus metus id nibh. Nulla id ultricies magna. Duis tincidunt, dui vestibulum sagittis tempus, lorem felis suscipit sapien, ut porttitor dui urna non nibh.</div><div><br></div><div>Integer a turpis lorem. Pellentesque ac ullamcorper neque. Sed in turpis a dolor imperdiet egestas. Integer porttitor pulvinar lacinia. Sed nibh turpis, fermentum a venenatis ac, aliquet eu nisi. Nam arcu lectus, dignissim vel scelerisque non, facilisis non arcu. Vestibulum quis nibh dui. Nunc non nunc sed odio tincidunt hendrerit sollicitudin sit amet sem. Nunc congue pulvinar hendrerit. Vestibulum ut felis sapien, quis tincidunt erat. Nullam interdum purus ut eros consequat dignissim. Duis vehicula vestibulum tortor, et porttitor odio elementum at. Praesent vel tortor non orci lacinia pellentesque ac vitae massa. Proin eget facilisis risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum egestas, eros ac tincidunt pretium, leo dui pellentesque nisl, non hendrerit libero odio ac eros. Nam posuere, urna non cursus vulputate, eros eros luctus ligula, nec congue tortor orci at felis.</div><div><br></div><div>Aliquam nunc dolor, congue et commodo non, laoreet sit amet orci. Donec euismod lobortis dictum. Sed malesuada fringilla sem, a facilisis justo scelerisque et. Vivamus rutrum lectus et dui hendrerit facilisis. Vestibulum enim massa, fermentum et luctus sed, suscipit a felis. Sed aliquet volutpat pharetra. Aliquam rutrum, lectus at varius rutrum, ante leo sollicitudin magna, sit amet dapibus orci erat vel quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean id dignissim velit. Maecenas tristique nisi erat. Nunc dapibus aliquam nulla, at placerat leo auctor vel. Quisque feugiat urna quis libero facilisis volutpat.&nbsp;</div>', 1),
+(46, 'Oswaldo Marques', 'oswaldo@marques.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(41) 2323-5465', '(41) 9955-2322', 'Rua sem nome,sn', 'Batel', 9, 'fdsafdsadsafsa', 1),
+(47, 'fdsafdsa', 'fdsafd@fdsacc.net', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(63) 2563-2564', '(24) 3243-2432', 'fdsafdsafdsa', 'fdsafdsa', 9, 'fdsafdsafdsa', 1),
+(48, 'qqqqqqqqq', 'qq@qaqq.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(63) 4523-5432', '(23) 3223-3421', 'afdsafdsafdsa', 'fdsafdsa', 2, 'fdsafdsafdsa', 1),
+(49, 'aaaaaaa GBccc mXcr', 'gfdsgfs@ggghhhjjkkj.org', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2143-2143', '(43) 2432-1543', 'fdsafdsafdsa', 'fdsafdsa', 3, 'DESCRIÇÃO', 1),
+(50, 'bbbbbbbbb', 'bb@bb.net', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2432-1423', '(23) 4324-3242', 'fdsafdsafdsafdsafdsafdsa', 'fdsafdsafdsa', 4, 'fdsa fdsa fdsa fda f dsa fdsa fdsa<br>', 1),
+(52, 'ddddd', 'ddd@fdsa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2143-2143', '(32) 1432-1432', 'fdsafdsafdsa', 'fdsafdsafdsa', 5, 'safdsafdsafdsafdsafdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa <br>', 1),
+(53, 'Monica', 'm@monica.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2451-3243', '(31) 2432-1431', 'fdsa fdsa fdsaf dsa fdsa', ' fdsa fdsa fdsa', 2, 'f dsafdsa fdsa fdsa fdas fdsa fdsa <br>', 1),
+(54, 'Robert Langdon', 'robert@langdon.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(45) 6456-4564', '(45) 6456-4654', 'fdsafdsafdsa', 'fdsafdsa', 7, 'f dsafd <font color="#ff0000">safdsa </font>fdsa <span style="background-color: rgb(153, 204, 0);">fdsa </span>fdsa <b>fdsaf </b>dsa<br>', 1),
+(55, 'Altamiro Lima', 'altamiro@lima.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(45) 6464-5646', '(64) 6546-5446', 'fdsaf dsa dfsa fdsa fdsa', 'fdsafdsa', 7, '<b>fdsa </b>fdsa <font color="#ff0000">fdsaf </font>dsa fdsa <span style="background-color: rgb(255, 255, 0);">fdsa </span>fsa<br>', 0),
+(56, 'Jhon Lenon', 'john@beatles.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(56) 4654-6465', '(46) 4654-6546', 'fdsafdsafdsa', 'fdsafdsafdsa', 4, 'fdsaf dsa fdsa fdsa fdsa<br>', 1),
+(57, 'Ronaldinho', 'ronaldo@selecao.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(45) 4645-6465', '(56) 4646-5464', 'fdsafdsafdsa', 'fdsafdsa', 5, 'fdsafdsa fdsa fdsa fdsa fdsa fdsa fdsa<br>', 1),
+(58, 'Abadia Coristalina', 'abadia@fjdks.com', '53b722fe6a32e35699af061920916a4b927f4a61', '(45) 6464-6546', '(65) 4465-4564', 'fdsafdsafda', 'fdsafdsaf', 9, '<img src="images/add.png" vspace="6" align="left" hspace="6">fd asfd safdas fdsah tequ hg hgs htda hdat<img src="images/imagens/camila_rodrigues.jpg" vspace="6" align="right" hspace="6">', 1),
+(60, 'aa', 'aa@fdsa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(23) 4153-2142', '(65) 4654-5665', '1231d3saf1d3safdsa', 'fdafdsa', 11, 'fdsafdas fdsoaf ldkçsaj fdsaj fdsaj fçldsaj fçldasj flçkds jalkfj dslçaj <br>', 1),
+(61, 'aaa', 'aaa@fdasfdsa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(54) 3254-3254', '(52) 4325-4325', 'fdsafdsafdsafd', 'fdsafdsa', 2, 'fdsafdsafdsafdsa', 1),
+(63, 'Jason Newsted', 'jason@metallica.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(45) 6456-4654', '(78) 9789-7949', 'Rua sem nome, sn', 'Costa e Silva', 1, 'fdsaf <font color="#ff0000">das </font>fdas fdsaf <b>dsa </b>fdas fdsafdsa<br>', 0),
+(64, 'Abreu', 'fjdgdsafsakl@fjaadlska.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2131-4542', '(21) 4321-4321', 'fdafdasfdsa', 'fdafdsa', 12, '', 1),
+(65, 'João Batista', 'joao@batista.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(46) 5464-6464', '(46) 5465-4646', 'Rua tal, 45', 'Centro', 1, 'Rfjadslkf jdalkf dlksa jflkdsa jflkdsaj<br>', 1),
+(67, 'ab', 'ab@gjf.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 1432-1432', '(43) 2141-3143', 'fdafdsa', 'fdsafdsa', 7, 'fdsafdsa', 1),
+(68, 'abc', 'abc@fjdklsaj.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2143-2143', '(32) 1432-1432', 'fdasfdsa', 'fdsa', 9, 'fdasfdsa', 1),
+(71, 'fdsafdsa', 'fdsajklfds@fjdsalkfalksdjadfasl.com', '53b722fe6a32e35699af061920916a4b927f4a61', '(43) 2143-2143', '(43) 2143-2143', '43214321432', '143214', 11, '', 1),
+(73, 'aaaaa', 'aaaaa@aaaa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 5432-5432', '(42) 3145-3214', 'fdsafsda', 'fdsafdsa', 9, '', 1),
+(74, 'aaaaaa', 'lfjdlksafj@lllllll.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(34) 1431-2431', '(43) 2143-2143', 'fdafdsafd', 'safdsafdsa', 9, '', 1),
+(75, 'aaaa', 'afdsafdsa@lllllsss.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(54) 3254-3254', '(54) 3254-3254', 'fdsafdsafdsa', 'fdsafdsa', 7, '', 1),
+(76, 'aab', 'ffdafdsaddd@kkk.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2143-2143', '(51) 3143-2143', 'fdsafdsaf', 'dsafdsafdsa', 9, '', 1),
+(77, 'yyyyyy', 'yyy@jfdl.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(34) 2142-1432', '(14) 3143-2143', 'fdsafdsaffd', 'safdsafdsa', 11, '', 1),
+(78, 'aabb', 'ieieie@dll.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(32) 1432-1421', '(43) 2143-2143', 'hfadskjaf', 'fdsafdsa', 5, '', 1),
+(79, 'aaaaaaY', 'fasfdsa4reqw@fj.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(52) 5425-4324', '(32) 1432-1432', 'afdasfdsa', 'fdffdfd', 5, '', 1),
+(80, 'aiiiiiii', 'aiiiii@iii.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(14) 3214-3214', '(31) 2431-4321', 'fdjaslfdjsa', 'rt4jdaslmv', 9, '', 1),
+(81, 'auuuuu', '4ouovjnvi@v.oi.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(50) 4328-1320', '(50) 1804-3821', 'fdsafds', 'flkdsjalf', 1, '', 1),
+(84, 'a', 'dsafdsa@fdsa.net', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2142-1432', '(43) 2143-2143', 'fdsafd', 'fdsafdsa', 1, '', 1),
+(85, 'fdsaf', 'leo@fjdsakl.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(32) 4143-2143', '(21) 4321-4321', 'fdsafdsa', 'fdsafdsa', 1, '', 1);
 
 -- --------------------------------------------------------
 
@@ -1328,8 +1495,9 @@ CREATE TABLE IF NOT EXISTS `pessoas_atributospessoais` (
 --
 
 INSERT INTO `pessoas_atributospessoais` (`idpessoas`, `idatributospessoais`) VALUES
+(1, 1),
 (22, 3),
-(49, 2),
+(22, 6),
 (57, 1),
 (57, 2),
 (57, 3),
@@ -1345,11 +1513,11 @@ INSERT INTO `pessoas_atributospessoais` (`idpessoas`, `idatributospessoais`) VAL
 (61, 3),
 (61, 4),
 (61, 5),
-(62, 1),
-(62, 2),
-(62, 3),
-(62, 4),
-(62, 5);
+(63, 2),
+(65, 2),
+(65, 3),
+(67, 5),
+(68, 5);
 
 -- --------------------------------------------------------
 
@@ -1389,25 +1557,48 @@ CREATE TABLE IF NOT EXISTS `pessoas_permissoes` (
 --
 
 INSERT INTO `pessoas_permissoes` (`idpessoas`, `idpermissoes`) VALUES
+(1, 8),
+(2, 1),
 (19, 1),
+(22, 1),
+(22, 2),
 (22, 5),
 (58, 1),
 (58, 2),
 (58, 3),
 (58, 4),
 (58, 5),
-(58, 7);
+(58, 7),
+(63, 1),
+(65, 5),
+(65, 6),
+(67, 2),
+(68, 2);
 
 --
 -- Restrições para as tabelas dumpadas
 --
 
 --
+-- Restrições para a tabela `agenda`
+--
+ALTER TABLE `agenda`
+  ADD CONSTRAINT `fk_agenda_locais1` FOREIGN KEY (`idlocais`) REFERENCES `locais` (`idlocais`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_agenda_pessoas1` FOREIGN KEY (`idpessoas`) REFERENCES `pessoas` (`idpessoas`) ON UPDATE CASCADE;
+
+--
+-- Restrições para a tabela `agenda_encarregados`
+--
+ALTER TABLE `agenda_encarregados`
+  ADD CONSTRAINT `agenda_encarregados_ibfk_1` FOREIGN KEY (`idagenda`) REFERENCES `agenda` (`idagenda`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `agenda_encarregados_ibfk_2` FOREIGN KEY (`idpessoas`) REFERENCES `pessoas` (`idpessoas`) ON UPDATE CASCADE;
+
+--
 -- Restrições para a tabela `cidades_atributospessoais_pessoas`
 --
 ALTER TABLE `cidades_atributospessoais_pessoas`
-  ADD CONSTRAINT `fk_cidades_has_atributospessoais_cidades1` FOREIGN KEY (`idcidades`) REFERENCES `cidades` (`idcidades`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_cidades_has_atributospessoais_atributospessoais1` FOREIGN KEY (`idatributospessoais`) REFERENCES `atributospessoais` (`idatributospessoais`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_cidades_has_atributospessoais_cidades1` FOREIGN KEY (`idcidades`) REFERENCES `cidades` (`idcidades`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_cidades_has_atributospessoais_pessoas1` FOREIGN KEY (`idpessoas`) REFERENCES `pessoas` (`idpessoas`) ON UPDATE CASCADE;
 
 --
