@@ -1,9 +1,8 @@
 <?php
 class MLocais extends CI_Model{
-	
-	function __construct() {
-        parent::__construct();
-    }
+	function MLocais(){
+		parent::__construct();
+	}
 	
 	function checkLogin($user, $pass){
 		$this->db->where("email", xss_clean($user));

@@ -38,6 +38,7 @@ Ext.onReady(function(){
                 allowBlank:false,
 				blankText: "Informe o usuário",
 				width: '90%',
+				value: 'contato@devhouse.com.br',
 				listeners:{
 					specialkey:function(owner,e){
 						if (e.getKey() == 13){
@@ -63,6 +64,7 @@ Ext.onReady(function(){
                 inputType:'password', 
                 allowBlank:false,
 				blankText: "Informe a senha",
+				value: '123456',
 				width: '90%',
 				listeners:{
 					specialkey:function(owner,e){

@@ -1,9 +1,8 @@
 <?php
 class MDownloads extends CI_Model{
-	
-	function __construct() {
-        parent::__construct();
-    }
+	function MDownloads(){
+		parent::__construct();
+	}
 	
 	function listaDownloads($query, $limit, $limit_start, $order_by, $order_direction){
 		$resultado = Array();

@@ -2,11 +2,13 @@
 
 class Teste extends CI_Controller {
 
+	function Teste(){
+		parent::__construct();
+	}
 	
 	function index(){
 		
 	}
-
 	function testeGrid(){
 		$data = Array(
         	Array("id" => 1, "empresa" => '3m Co',									"valor" => 71.72,	"variacao" => 0.02,		"percentual" => 0.03,	"data"=>'9/1 12:00am'),

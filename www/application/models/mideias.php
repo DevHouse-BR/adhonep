@@ -1,9 +1,8 @@
 <?php
 class MIdeias extends CI_Model{
-	
-	function __construct() {
-        parent::__construct();
-    }
+	function MIdeias(){
+		parent::__construct();
+	}
 	
 	function listaIdeias($query, $limit, $limit_start, $order_by, $order_direction){
 		$resultado = Array();

@@ -1,11 +1,10 @@
 <?php
 class MCidades extends CI_Model{
-
-	function __construct() {
-        parent::__construct();
-        //echo $this->db->_compile_select();
+	function MCidades(){
+		parent::__construct();
+		//echo $this->db->_compile_select();
 		//echo $this->db->last_query();
-    }
+	}
 	
 	function listaCidades($query, $limit, $limit_start, $order_by, $order_direction){
 		$resultado = Array();

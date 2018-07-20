@@ -1,13 +1,12 @@
 <?php
 class MPessoas extends CI_Model{
-
-	function __construct() {
-        parent::__construct();
-    }
+	function MPessoas(){
+		parent::__construct();
+	}
 	
 	function checkLogin($user, $pass){
 		$this->db->where("email", $user);
-		$this->db->where("senha", do_hash($pass));
+		$this->db->where("senha", do_hash($pass, "md5"));
 		
 		$this->db->select('idpessoas, nome, email, acesso');	
 		$result = $this->db->get("pessoas");

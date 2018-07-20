@@ -235,7 +235,6 @@ function salvaCidadeGrid(oGrid_event){
 var ArrayResponsaveis = [];
 
 function populateResponsaveis(){
-	var AtributosPessoaisStore = DevHouseDesktop.Stores.storeAtributosPessoais;
 	ArrayResponsaveis = [];
 	for (i=0; i<AtributosPessoaisStore.data.length;i++){
 		if ((AtributosPessoaisStore.data.items[i].data.aplicacao == 2) || (AtributosPessoaisStore.data.items[i].data.aplicacao == 3)) {
@@ -401,7 +400,7 @@ DevHouseDesktop.CidadesCreateWindow = Ext.extend(Ext.app.Module, {
 										}
 			            				if(CidadesGridWindow){
 			            					if(CidadesGridWindow.isVisible()) CidadesDataStore.reload();
-			            					DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
+											DevHouseDesktop.desktop.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
 			            				}
 		    						}, 
 		    						failure: function(form, action){

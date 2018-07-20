@@ -904,7 +904,7 @@ DevHouseDesktop.AgendaCreateWindow = Ext.extend(Ext.app.Module, {
 										}
 			            				if(AgendaGridWindow){
 			            					if(AgendaGridWindow.isVisible()) AgendaDataStore.reload();
-			            					DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
+											DevHouseDesktop.desktop.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
 			            				}
 		    						}, 
 		    						failure: function(form, action){

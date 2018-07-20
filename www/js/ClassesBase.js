@@ -8,15 +8,13 @@ ClassesBase.Grids.GridEditorBasico = function(config){
 	this.proxyConfig = {
 		url: config.gridConfig.getUrl,
 		method: 'POST'
-    };
-
+    }
 	Ext.apply(this.proxyConfig, config.proxyConfig);
 	
 	this.readerConfig = {
 		root: 'rows',
 		totalProperty: 'results'
-    };
-
+    }
 	Ext.apply(this.readerConfig, config.readerConfig);
 	
 	this.storeConfig = {
@@ -31,8 +29,7 @@ ClassesBase.Grids.GridEditorBasico = function(config){
 			exception: HttpHelpers.failHandler
 		},
 		reader: new Ext.data.JsonReader(this.readerConfig, config.readerFields)
-	};
-	
+	}
 	Ext.ux.util.mapObj(this.storeConfig, config.storeConfig);
 	this.dataStore = new Ext.data.Store(this.storeConfig);
 	

@@ -211,7 +211,7 @@ DevHouseDesktop = new Ext.app.App({
 											else{
 												var resposta = Ext.util.JSON.decode(response.responseText);
 												if(resposta.success){
-													DesktopHelpers.showNotification({title:'Concluido',iconCls:'info-icon',html: 'Dados gravados com sucesso!'});
+													DevHouseDesktop.desktop.showNotification({title:'Concluido',iconCls:'info-icon',html: 'Dados gravados com sucesso!'});
 													ajustes.close();
 												}
 											}
@@ -271,19 +271,7 @@ DevHouseDesktop = new Ext.app.App({
                 scope:this,
 				handler: function(){
 					//alert('logout');
-					//DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
-					Ext.Ajax.request({
-						url: 'login/logout',
-						method: 'GET',
-						scope: this,
-						success: function(response, options){
-							var resposta = Ext.util.JSON.decode(response.responseText);
-							if(resposta.success){
-								location = "login";
-							}
-						},
-						failure:HttpHelpers.failHandler
-					});
+					DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
 				}
             }]
         };

@@ -435,7 +435,7 @@ DevHouseDesktop.LocaisCreateWindow = Ext.extend(Ext.app.Module, {
 										}
 			            				if(LocaisGridWindow){
 			            					if(LocaisGridWindow.isVisible()) LocaisDataStore.reload();
-			            					DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
+											DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
 			            				}
 		    						}, 
 		    						failure: function(form, action){

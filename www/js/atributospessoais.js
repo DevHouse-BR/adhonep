@@ -323,7 +323,7 @@ DevHouseDesktop.AtributosPessoaisCreateWindow = Ext.extend(Ext.app.Module, {
 										}
 			            				if(AtributosPessoaisGridWindow){
 			            					if(AtributosPessoaisGridWindow.isVisible()) AtributosPessoaisDataStore.reload();										
-			            					DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html:'Dados gravados com sucesso!'});
+											DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html:'Dados gravados com sucesso!'});
 			            				}
 		    						}, 
 		    						failure: function(form, action){

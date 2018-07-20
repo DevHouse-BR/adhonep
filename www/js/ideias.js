@@ -359,7 +359,7 @@ DevHouseDesktop.IdeiasCreateWindow = Ext.extend(Ext.app.Module, {
 										}
 			            				if(IdeiasGridWindow){
 			            					if(IdeiasGridWindow.isVisible()) IdeiasDataStore.reload();
-			            					DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
+											DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
 			            				}
 		    						}, 
 		    						failure: function(form, action){

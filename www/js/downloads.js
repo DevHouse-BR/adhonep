@@ -52,7 +52,7 @@ DevHouseDesktop.DownloadsWindow = Ext.extend(Ext.app.Module, {
 							//exception:DevHouseDesktop.desktop.erroHTTP
 						},
                         proxy: new Ext.data.HttpProxy({
-                        	url: 'downloads/downloadsGrid',
+                        	url: 'download/downloadsGrid',
                             method: 'POST'
                         }),
                         baseParams:{
@@ -103,7 +103,7 @@ DevHouseDesktop.DownloadsWindow = Ext.extend(Ext.app.Module, {
                 		    width: 150,
                 		    readOnly: true,
 							renderer:  function(data, cell, record, rowIndex, columnIndex, store) {
-	            			      return '<a target="_blank" href="downloads/downloadNow/' + record.data.iddownloads + '"><img align="left" src="images/download-now.png" ext:qwidth="156" ext:qtitle="Download" ext:qtip="Clique para fazer o download" /></a>&nbsp;' + data;
+	            			      return '<a target="_blank" href="download/downloadNow/' + record.data.iddownloads + '"><img align="left" src="images/download-now.png" ext:qwidth="156" ext:qtitle="Download" ext:qtip="Clique para fazer o download" /></a>&nbsp;' + data;
 	            			  }
                 		  },{
                 			  header: "Autor",
@@ -157,7 +157,7 @@ DevHouseDesktop.DownloadsWindow = Ext.extend(Ext.app.Module, {
 						tooltip: 'Remove os registros selecionados',
 						iconCls:'remove',
 						align:"right",
-				       	handler : HttpHelpers.excluirRegistro.createDelegate(this, [{grid: 'DownloadsListingEditorGrid', url: 'downloads/removeDownloads', campoid:'iddownloads'}], true),
+				       	handler : HttpHelpers.excluirRegistro.createDelegate(this, [{grid: 'DownloadsListingEditorGrid', url: 'download/removeDownloads', campoid:'iddownloads'}], true),
 				       	scope : this
 				     })
 					 , '-', 
@@ -191,7 +191,7 @@ DevHouseDesktop.DownloadsWindow = Ext.extend(Ext.app.Module, {
 											//exception:DevHouseDesktop.desktop.erroHTTP
 										},
 				                        proxy: new Ext.data.HttpProxy({
-				                        	url: 'downloads/downloadsGrid',
+				                        	url: 'download/downloadsGrid',
 				                            method: 'POST'
 				                        }),
 				                        baseParams:{
@@ -233,7 +233,7 @@ DevHouseDesktop.DownloadsWindow = Ext.extend(Ext.app.Module, {
 							text: 'Imprimir',
 						    tooltip: 'Imprimir',
 					        handler: function(){
-								window.open('downloads/downloadsGridPrint')
+								window.open('download/downloadsGridPrint')
 							}, 
 					        iconCls:'print'
 						}
@@ -278,7 +278,7 @@ function editaDownload(rowIndex){
 
 function salvaDownloadGrid(oGrid_event){
 	DevHouseDesktop.desktop.salvaGrid({
-		url: 'downloads/salvaDownloadGrid',
+		url: 'download/salvaDownloadGrid',
 		params: {
 			iddownloads: oGrid_event.record.data.iddownloads,
 			arquivo: oGrid_event.record.data.arquivo,
@@ -313,7 +313,7 @@ DevHouseDesktop.DownloadsCreateWindow = Ext.extend(Ext.app.Module, {
             	plain:true,
             	layout: 'fit',
                 items: DownloadsCreateForm = new Ext.FormPanel({
-                	url: 'downloads/salvaDownload',
+                	url: 'download/salvaDownload',
 					labelWidth:60,
 					fileUpload: true,
                 	monitorValid:true,
@@ -385,7 +385,7 @@ DevHouseDesktop.DownloadsCreateWindow = Ext.extend(Ext.app.Module, {
 										}
 			            				if(DownloadsGridWindow){
 			            					if(DownloadsGridWindow.isVisible()) DownloadsDataStore.reload();
-			            					DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
+											DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
 			            				}
 		    						}, 
 		    						failure: function(form, action){

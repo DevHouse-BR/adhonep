@@ -1,8 +1,8 @@
 <?php
 class MAjustes extends CI_Model{
-	function __construct() {
-        parent::__construct();
-    }
+	function MAjustes(){
+		parent::__construct();
+	}
 	
 	function listaAjustes(){
 		$resultado = Array();

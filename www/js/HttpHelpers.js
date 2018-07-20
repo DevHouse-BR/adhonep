@@ -11,10 +11,13 @@ var HttpHelpers = function(){
 			case 0:
 				mensagem = Ext.names.ErroHTTPComunication;
 				break;
-			case '404':
+			case 404:
 				mensagem = Ext.names.ErroHTTP404;
 				break;
 			case '200':
+				mensagem = Ext.names.ErroHTTPNotJSON;
+				break;
+			case 500:
 				mensagem = Ext.names.ErroHTTPNotJSON;
 				break;
 			default:
@@ -65,7 +68,7 @@ var HttpHelpers = function(){
 		var defaults = ({
 			title: Ext.names.Erro,
 			msg: Ext.names.ErroHTTP,
-			width: 350,
+			width: 300,
 			buttons: Ext.MessageBox.OK,
             icon: Ext.MessageBox.ERROR
 		});
@@ -93,8 +96,10 @@ var HttpHelpers = function(){
 	            };
 	        }
 	
-			var contentType = response.getResponseHeader('Content-Type');
-			if((contentType != "application/json")&& (response.responseText.charAt(0) != "{")){
+			if(response.getResponseHeader != undefined) var contentType = response.getResponseHeader('Content-Type');
+			else contentType = "";
+
+			if((contentType != "application/json") && (response.responseText.charAt(0) != "{")){
 				return Ext.decode('{success:false, errormsg:"' + Ext.names.ErroHTTPNotJSON + String.escape(response.responseText)+'"}');
 			}
 	        else{
@@ -168,8 +173,7 @@ var HttpHelpers = function(){
 					}
 			}, config));
 		},
-		
-		
+
 		failHandler: function(){
 			switch(HttpHelpers.failHandler.arguments.length) {
 				case 2:
@@ -182,12 +186,18 @@ var HttpHelpers = function(){
 						
 						showMessageBox({msg: switchResponseStatus(response.status)});
 					}
-					else if((arg1.url != undefined)&&(arg2.response != undefined)){
+					else if(((arg1.url != undefined)&&(arg2.response != undefined)) || (arg1.status == 500) || (arg1.status == 404)){
 						var form = arg1;
 						var action = arg2;
 	
-						if (action.failureType === Ext.form.Action.CONNECT_FAILURE) {
-							showMessageBox({msg: Ext.names.ErroHTTPComunication + 'Status '+action.response.status+': '+ action.response.statusText});
+						if (arg1.status == 500){
+							showMessageBox({msg: switchResponseStatus(form.status) + 'Status '+ form.status + ': ' + form.statusText + '<br/>' + form.responseText});
+						}
+						else if(arg1.status == 404){
+							showMessageBox({msg: switchResponseStatus(form.status)});
+						}
+						else if (action.failureType === Ext.form.Action.CONNECT_FAILURE){
+							showMessageBox({msg: Ext.names.ErroHTTPComunication + 'Status '+ action.response.status + ': ' + action.response.statusText});
 			            }
 						else{
 							var contentType = action.response.getResponseHeader('Content-Type');
@@ -231,5 +241,6 @@ var HttpHelpers = function(){
 					break;
 			}
 		}
+
 	}
 }();

@@ -6,7 +6,7 @@ function access_control($entidade){
 		header('Cache-Control: no-cache, must-revalidate');
 		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 		header('Content-type: application/json');
-		die('{"success":false, "errormsg":"Você não tem permissão para executar esta tarefa."}');	
+		echo('{"success":false, "errormsg":"Você não tem permissão para executar esta tarefa."}');	
 	}
 }
 ?>

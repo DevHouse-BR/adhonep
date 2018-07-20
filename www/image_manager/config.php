@@ -43,7 +43,7 @@
 	$mcImageManagerConfig['filesystem.invalid_file_name_msg'] = "";
 	$mcImageManagerConfig['filesystem.extensions'] = "gif,jpg,png,bmp,swf,dcr,mov,qt,ram,rm,avi,mpg,mpeg,asf,flv";
 	$mcImageManagerConfig['filesystem.readable'] = true;
-	$mcImageManagerConfig['filesystem.writable'] = true;
+	$mcImageManagerConfig['filesystem.writable'] = false;
 	$mcImageManagerConfig['filesystem.delete_recursive'] = false;
 	$mcImageManagerConfig['filesystem.directory_templates'] = '${rootpath}/templates/directory,${rootpath}/templates/another_directory';
 	$mcImageManagerConfig['filesystem.force_directory_template'] = false;

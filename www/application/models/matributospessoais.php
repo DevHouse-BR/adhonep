@@ -1,10 +1,9 @@
 <?php
 class MAtributosPessoais extends CI_Model{
+	function MAtributosPessoais(){
+		parent::__construct();
+	}
 	
-	function __construct() {
-        parent::__construct();
-    }
-
 	function listaAtributos($query, $limit, $limit_start, $order_by, $order_direction){
 		$resultado = Array();
 

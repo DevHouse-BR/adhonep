@@ -1,9 +1,8 @@
 <?php
 class MPermissoes extends CI_Model{
-	
-	function __construct() {
-        parent::__construct();
-    }
+	function MPermissoes(){
+		parent::__construct();
+	}
 	
 	function listaPermissoes($query, $limit, $limit_start, $order_by, $order_direction){
 		$resultado = Array();

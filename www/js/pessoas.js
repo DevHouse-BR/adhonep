@@ -1,7 +1,7 @@
 /**
 * @author Leonardo
 */
-alert("aqui");
+
 var PessoasGridWindow;
 var JanelaPessoasCreateWindow;
 
@@ -836,7 +836,7 @@ MyDesktop.PessoasCreateWindow = Ext.extend(Ext.app.Module, {
 										}
 			            				if(PessoasGridWindow){
 			            					if(PessoasGridWindow.isVisible()) PessoasDataStore.reload();
-			            					DesktopHelpers.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
+											MyDesktop.desktop.showNotification({title:'Concluido',iconCls:'alerta',html: 'Dados gravados com sucesso!'});
 			            				}
 		    						}, 
 		    						failure: function(form, action){

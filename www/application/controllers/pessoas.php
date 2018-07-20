@@ -2,18 +2,17 @@
 
 class Pessoas extends CI_Controller {
 
-	function __construct() {
-        parent::__construct();
-        /*if(!$this->session->userdata('logged_in')) {
+	function Pessoas(){
+		parent::__construct();
+		/*if(!$this->session->userdata('logged_in')) {
 			redirect("login");
 		}*/
 		$this->load->helper('email');
-    }
+	}
 	
 	function index(){
 		
 	}
-	
 	function pessoasGrid(){
 		$idatributospessoais = "";
 		$query = $this->input->post('query', TRUE);
@@ -165,7 +164,7 @@ class Pessoas extends CI_Controller {
 			'idpessoas' => $this->input->post('idpessoas', TRUE),
 			'nome' => $this->input->post('nome', TRUE),
 			'email' => $this->input->post('email', TRUE),
-			'senha' => do_hash($this->input->post('senha', TRUE)),
+			//'senha' => do_hash($this->input->post('senha', TRUE), "md5"),
 			'telefone' => $this->input->post('telefone', TRUE),
 			'celular' => $this->input->post('celular', TRUE),
 			'endereco' => $this->input->post('endereco', TRUE),
@@ -176,16 +175,16 @@ class Pessoas extends CI_Controller {
 			'idpermissoes' => $this->input->post('idpermissoes', TRUE),
 			'acesso' => array_key_exists("acesso", $_POST) ? true : false,
 		);
-		$confirma = do_hash(xss_clean($_POST['confirmaSenha']));
+		$confirma = do_hash(xss_clean($_POST['confirmaSenha']), "md5");
 		
 		if (!valid_email($data["email"])){
 			json_echo('{success: false, errors: {"id-field-pessoas-email": "Formato de email inválido."}, errormsg:"Formato de email inválido."}');
 			return;
 		}
-		if($data["senha"] != $confirma){
+		/*if($data["senha"] != $confirma){
 			json_echo('{success: false, errors: {"id-field-pessoas-senha": "Senhas não conferem.", "id-field-pessoas-confirmasenha":"Senhas não conferem."}, errormsg:"Senhas não conferem."}');
 			return;
-		}
+		}*/
 		if((int)$data['idpessoas']== 0){
 			if($this->MPessoas->pessoaExiste($data['email'])){
 				json_echo('{success: false, errors: {"id-field-pessoas-email": "Email já cadastrado no sistema."}, errormsg:"Email já cadastrado no sistema."}');

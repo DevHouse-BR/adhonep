@@ -1,9 +1,8 @@
 <?php
 class MAgenda extends CI_Model{
-	
-	function __construct() {
-        parent::__construct();
-    }
+	function MAgenda(){
+		parent::__construct();
+	}
 	
 	function listaAgenda($query, $limit, $limit_start, $order_by, $order_direction){
 		$resultado = Array();

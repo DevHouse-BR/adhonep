@@ -2,13 +2,13 @@
 
 class Agenda extends CI_Controller {
 
-	function __construct() {
-        parent::__construct();
-        if(!$this->session->userdata('logged_in')) {
+	function Agenda(){
+		parent::__construct();
+		if(!$this->session->userdata('logged_in')) {
 			redirect("login");
 		}
 		$this->load->model('MAgenda');
-    }
+	}
 	
 	function index(){
 		
@@ -148,7 +148,7 @@ class Agenda extends CI_Controller {
 		$datahora = "";
 		
 		if($data){
-			$data = split("/", $data);
+			$data = explode("/", $data);
 			$data = $data[2] . '-' . $data[1] . '-' . $data[0];
 			$datahora = $data;
 		}

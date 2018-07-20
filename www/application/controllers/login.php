@@ -1,13 +1,12 @@
-<?php 
-if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class Login extends CI_Controller {
 
-	function __construct() {
-        parent::__construct();
-    }
+	function Login(){
+		parent::__construct();
+	}
 	
-	public function index(){
+	function index(){
 		if($this->session->userdata('logged_in')) {
 			redirect("desktop");
 		}
@@ -26,8 +25,8 @@ class Login extends CI_Controller {
 		
 		
 		$pessoa = $this->MPessoas->checkLogin($loginUsername,$loginPassword);
-		if($pessoa){
-			if($pessoa['acesso']){
+		if(count($pessoa) > 0){
+			if($pessoa['acesso'] == true){
 				$this->session->sess_destroy();
 
 				setcookie("usuario", htmlentities($pessoa['nome'], ENT_QUOTES, 'UTF-8'), false, "/", false);
@@ -64,32 +63,27 @@ class Login extends CI_Controller {
 
         //Destroy session
         $this->CI->session->sess_destroy();
-        json_echo(json_encode(array(
-        	"success" => true
-        )));
     }
     
     private function retornaBackground(){
-
-    	$path = $_SERVER['DOCUMENT_ROOT'] . "/adhonep/wallpapers/";
-	    $dir = opendir($path);
-	    $i = 0;
-
-	    while($imgfile=readdir($dir)) {
-			if (($imgfile != ".") && ($imgfile!="..")) {
-				$imgarray[$i] = $imgfile;
-				$i++;
-			}
+    	$path = $_SERVER['DOCUMENT_ROOT'] . "/showcase/adhonep/wallpapers/";
+	    $dir=opendir($path);
+	    
+	    $i=0;
+	    while($imgfile=readdir($dir))
+	    {
+	         if ($imgfile != "." && $imgfile!=".." && $imgfile!="thumb.db" && $imgfile!=".svn")
+	             {
+	            $imgarray[$i]=$imgfile;
+	            $i++;
+	            }
 	    }
 	    closedir($dir);
 	    $num = intval(file_get_contents("bg.txt"));
 	    $num++;
-	    
 	    if($num > (count($imgarray)-1)) $num = 0;
-	    
 	    file_put_contents("bg.txt", strval($num));
 	    $fundo = $imgarray[$num];
-	    
 	    return $fundo;
     }
 }

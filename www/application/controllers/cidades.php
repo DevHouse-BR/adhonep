@@ -2,18 +2,18 @@
 
 class Cidades extends CI_Controller {
 
-	function __construct() {
-        parent::__construct();
-        /*if(!$this->session->userdata('logged_in')) {
+	function Cidades(){
+		parent::__construct();
+		if(!$this->session->userdata('logged_in')) {
 			redirect("login");
-		}*/
+		}
 		$this->load->model('MCidades');
-    }
+	}
 	
-	public function index(){
+	function index(){
 		
 	}
-	public function cidadesGrid(){
+	function cidadesGrid(){
 		$query = $this->input->post('query', TRUE);
 		$limit = $this->input->post('limit', TRUE);
 		$limit_start = $this->input->post('start', TRUE);
@@ -37,7 +37,7 @@ class Cidades extends CI_Controller {
 		json_echo(json_encode($resultado));
 	}
 	
-	public function cidadesGridPrint(){
+	function cidadesGridPrint(){
 		$data = array();
 		$query = $this->input->post('query', TRUE);
 		$limit = $this->input->post('limit', TRUE);
@@ -89,7 +89,7 @@ class Cidades extends CI_Controller {
 		$this->load->view('print_table', $data);		
 	}
 	
-	public function salvaCidadeGrid(){
+	function salvaCidadeGrid(){
 		$data = array(
 			'idcidades' => $this->input->post('idcidades', TRUE),
 			'cidade' => $this->input->post('cidade', TRUE),
@@ -100,7 +100,7 @@ class Cidades extends CI_Controller {
 		else json_echo("{success:false, errormsg:'Não foi possível gravar informações no banco de dados.'}");
 	}
 	
-	public function salvaCidade(){
+	function salvaCidade(){
 		$data = array(
 			'idcidades' => $this->input->post('idcidades', TRUE),
 			'cidade' => $this->input->post('cidade', TRUE),
@@ -140,7 +140,7 @@ class Cidades extends CI_Controller {
 		else json_echo("{success:false, errormsg:'Não foi possível gravar informações no banco de dados.'}");	
 	}
 	
-	public function removeCidades(){
+	function removeCidades(){
 		$ids = $this->input->post('ids', TRUE);
 		$ids = json_decode($ids);
 		$qtd = $this->MCidades->removeCidades($ids);
