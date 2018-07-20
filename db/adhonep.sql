@@ -1,31 +1,22 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.7
+-- version 2.8.2.4
 -- http://www.phpmyadmin.net
---
--- Servidor: localhost
--- Tempo de Geração: Out 09, 2009 as 05:10 PM
--- Versão do Servidor: 5.0.51
--- Versão do PHP: 5.2.6
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
+-- 
+-- Servidor: localhost:3306
+-- Tempo de Geração: Jul 03, 2010 as 09:33 PM
+-- Versão do Servidor: 5.0.45
+-- Versão do PHP: 5.2.3
+-- 
 -- Banco de Dados: `adhonep`
---
+-- 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `agenda`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `agenda` (
+CREATE TABLE `agenda` (
   `idagenda` int(10) unsigned NOT NULL auto_increment,
   `datahora` datetime NOT NULL,
   `novos` int(11) default NULL,
@@ -33,33 +24,27 @@ CREATE TABLE IF NOT EXISTS `agenda` (
   `desc` text,
   `site` tinyint(1) NOT NULL default '1',
   `idlocais` int(10) unsigned NOT NULL,
-  `statuslocal` enum('vermelho','amarelo','verde') NOT NULL default 'vermelho',
+  `statuslocal` enum('vermelho','amarelo','verde') default 'vermelho',
   `idpessoas` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`idagenda`),
   KEY `fk_agenda_locais1` (`idlocais`),
   KEY `fk_agenda_pessoas1` (`idpessoas`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
---
+-- 
 -- Extraindo dados da tabela `agenda`
---
+-- 
 
-INSERT INTO `agenda` (`idagenda`, `datahora`, `novos`, `total`, `desc`, `site`, `idlocais`, `statuslocal`, `idpessoas`) VALUES
-(1, '2009-09-27 23:07:00', 0, 50, 'Descrição <b>bla</b> bla bla', 1, 1, 'vermelho', 1),
-(2, '0000-00-00 00:00:00', 22, 200, '&nbsp;fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds fdsafdsa fdsaf dsaf ds<br>\n\n\n\n\n\n\n\n\n\n\n\n\n', 1, 1, 'amarelo', 1),
-(3, '0000-00-00 00:00:00', 0, 4321, 'gfdsgfds gfsg fs fs<br>', 1, 5, 'vermelho', 1),
-(4, '2009-10-10 10:00:00', 0, 3234, 'fdsafdsa', 1, 4, 'verde', 1),
-(5, '2009-10-09 17:15:00', 8, 432, 'fdsafsd', 1, 5, 'vermelho', 1),
-(6, '2009-10-04 03:15:00', 253, 2342432, 'fdsafdsa', 1, 1, 'amarelo', 1),
-(7, '2009-10-28 02:45:00', 43, 43234, 'aaaaaa', 1, 1, 'vermelho', 1);
+INSERT INTO `agenda` (`idagenda`, `datahora`, `novos`, `total`, `desc`, `site`, `idlocais`, `statuslocal`, `idpessoas`) VALUES (1, '2009-10-16 20:00:00', 0, 0, '', 1, 1, 'vermelho', 1),
+(2, '2009-11-28 20:00:00', 0, 0, '', 1, 1, 'verde', 1);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `agenda_encarregados`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `agenda_encarregados` (
+CREATE TABLE `agenda_encarregados` (
   `idagenda` int(10) unsigned NOT NULL,
   `idpessoas` int(10) unsigned NOT NULL,
   `tipo` tinyint(3) unsigned NOT NULL,
@@ -69,130 +54,95 @@ CREATE TABLE IF NOT EXISTS `agenda_encarregados` (
   KEY `fk_agenda_encarregados_pessoas1` (`idpessoas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `agenda_encarregados`
---
+-- 
 
-INSERT INTO `agenda_encarregados` (`idagenda`, `idpessoas`, `tipo`, `status`) VALUES
-(1, 1, 1, 'vermelho'),
-(1, 2, 3, 'vermelho'),
-(1, 20, 4, 'vermelho'),
-(1, 22, 2, 'amarelo'),
-(2, 13, 1, 'vermelho'),
-(2, 18, 2, 'verde'),
-(2, 19, 3, 'verde'),
-(2, 58, 4, 'amarelo'),
-(3, 18, 4, 'vermelho'),
-(3, 22, 2, 'vermelho'),
-(3, 55, 3, 'vermelho'),
-(3, 58, 1, 'vermelho'),
-(4, 13, 2, 'vermelho'),
-(4, 18, 3, 'amarelo'),
-(4, 19, 1, 'vermelho'),
-(4, 55, 4, 'vermelho'),
-(5, 13, 3, 'vermelho'),
-(5, 19, 4, 'amarelo'),
-(5, 22, 2, 'amarelo'),
-(5, 58, 1, 'verde'),
-(6, 18, 4, 'vermelho'),
-(6, 19, 1, 'vermelho'),
-(6, 49, 2, 'vermelho'),
-(6, 60, 3, 'vermelho'),
-(7, 12, 1, 'vermelho'),
-(7, 16, 3, 'vermelho'),
-(7, 33, 4, 'vermelho'),
-(7, 43, 2, 'vermelho');
+INSERT INTO `agenda_encarregados` (`idagenda`, `idpessoas`, `tipo`, `status`) VALUES (1, 2, 1, 'amarelo'),
+(1, 2, 2, 'vermelho'),
+(1, 2, 3, 'verde'),
+(1, 2, 4, 'verde'),
+(2, 1, 2, 'vermelho'),
+(2, 3, 3, 'amarelo'),
+(2, 4, 1, 'amarelo'),
+(2, 5, 4, 'vermelho');
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `ajustes`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `ajustes` (
+CREATE TABLE `ajustes` (
   `nome` varchar(255) NOT NULL,
   `valor` varchar(255) default NULL,
   PRIMARY KEY  (`nome`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `ajustes`
---
+-- 
 
-INSERT INTO `ajustes` (`nome`, `valor`) VALUES
-('Onde Usar Idéias', 'Opção 1;Opção 2; Opção 34; Opção 4'),
-('Teste de Opção', 'sim');
+INSERT INTO `ajustes` (`nome`, `valor`) VALUES ('Onde Usar Idéias', 'Opção 1;Opção 2; Opção 3; Opção 4');
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `atributospessoais`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `atributospessoais` (
+CREATE TABLE `atributospessoais` (
   `idatributospessoais` int(10) unsigned NOT NULL auto_increment,
-  `atributo` varchar(255) character set latin1 NOT NULL,
+  `atributo` varchar(255) NOT NULL,
   `aplicacao` tinyint(4) NOT NULL,
   PRIMARY KEY  (`idatributospessoais`),
   KEY `atributo` (`atributo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
---
+-- 
 -- Extraindo dados da tabela `atributospessoais`
---
+-- 
 
-INSERT INTO `atributospessoais` (`idatributospessoais`, `atributo`, `aplicacao`) VALUES
-(1, 'Líder', 3),
-(2, 'Preletor', 1),
-(3, 'Comunicação', 3),
-(4, 'Mestre Cerimônia', 1),
-(5, 'Músico', 1),
-(6, '5 Minutos', 1),
-(7, 'Tesoureiro', 2),
-(8, 'Vice', 2);
+INSERT INTO `atributospessoais` (`idatributospessoais`, `atributo`, `aplicacao`) VALUES (1, 'Preletor', 1),
+(2, 'Músico', 1),
+(3, 'Mestre Cerimônia', 1),
+(4, 'Testem. cinco minutos', 1);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `cidades`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `cidades` (
+CREATE TABLE `cidades` (
   `idcidades` int(10) unsigned NOT NULL auto_increment,
-  `cidade` varchar(100) character set latin1 NOT NULL,
+  `cidade` varchar(100) NOT NULL,
   `capitulo` varchar(50) default NULL,
-  `imagem` varchar(255) character set latin1 default NULL,
-  `desc` text character set latin1,
+  `imagem` varchar(255) default NULL,
+  `desc` text,
   PRIMARY KEY  (`idcidades`),
   UNIQUE KEY `cidade` (`cidade`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Cidades do sistema' AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='Cidades do sistema' AUTO_INCREMENT=8 ;
 
---
+-- 
 -- Extraindo dados da tabela `cidades`
---
+-- 
 
-INSERT INTO `cidades` (`idcidades`, `cidade`, `capitulo`, `imagem`, `desc`) VALUES
-(1, 'Joinville', NULL, NULL, 'Cidade de Joinville'),
-(2, 'Blumenau', NULL, 'adho.gif', 'fdsa fdsa fdsa fdsa<br>'),
-(3, 'Itajaí', NULL, '00_evento27-09.gif', '?hjyfdjkfgkjfkgf'),
-(4, 'Brusque', '', '07_evento27-09.jpg', 'fdsa fdas fdsa fdsa f<br>'),
-(5, 'Florianópolis', NULL, '10.jpg', '?fd safdjh djdf<br>'),
-(6, 'São Paulo', NULL, '07--Apoio-Jovem-26.04_.2008_.jpg', 'saf das fdas fdas fdas<br>'),
-(7, 'Lages', NULL, 'camila_rodrigues.jpg', '?Cidade de Lages'),
-(9, 'Curitiba', NULL, NULL, ''),
-(10, 'Jaraguá', NULL, 'community_users.png', 'fdsaf dsa fdsa fdsa fdsa <br>'),
-(11, 'Caraticuiba', NULL, 'close.png', 'fdsafdsafdsa'),
-(12, 'Nova Iorque', NULL, 'application_view_list.png', '&nbsp;yrjgfs hfd agfagh fdag fagfa<br>'),
-(14, 'Smallville', '1321', NULL, 'f dsa fdasg sag dsaf dsa fdsaf dsa fdsa<br>'),
-(15, 'São Tomé das Letras', '1321', NULL, 'f dsa fdasg sag dsaf dsa fdsaf dsa fdsa<br>');
+INSERT INTO `cidades` (`idcidades`, `cidade`, `capitulo`, `imagem`, `desc`) VALUES (1, 'Joinville', '017', 'joinville.jpg', 'Cidade de Joinville'),
+(2, 'Itajaí', '', NULL, ''),
+(3, 'Florianópolis', '', NULL, ''),
+(4, 'Brusque', '', NULL, ''),
+(5, 'São Paulo', '', NULL, ''),
+(6, 'Florida', '3', NULL, 'fdasfd'),
+(7, 'Flor de Liz', '3', NULL, 'fdsa');
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `cidades_atributospessoais_pessoas`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `cidades_atributospessoais_pessoas` (
+CREATE TABLE `cidades_atributospessoais_pessoas` (
   `idcidades` int(10) unsigned NOT NULL,
   `idatributospessoais` int(10) unsigned NOT NULL,
   `idpessoas` int(10) unsigned NOT NULL,
@@ -202,28 +152,18 @@ CREATE TABLE IF NOT EXISTS `cidades_atributospessoais_pessoas` (
   KEY `fk_cidades_has_atributospessoais_pessoas1` (`idpessoas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `cidades_atributospessoais_pessoas`
---
+-- 
 
-INSERT INTO `cidades_atributospessoais_pessoas` (`idcidades`, `idatributospessoais`, `idpessoas`) VALUES
-(4, 3, 55),
-(14, 1, 15),
-(14, 3, 22),
-(14, 7, 54),
-(14, 8, 43),
-(15, 1, 15),
-(15, 3, 22),
-(15, 7, 54),
-(15, 8, 43);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `downloads`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `downloads` (
+CREATE TABLE `downloads` (
   `iddownloads` int(10) unsigned NOT NULL auto_increment,
   `arquivo` varchar(255) NOT NULL,
   `caminho` varchar(255) NOT NULL,
@@ -232,67 +172,41 @@ CREATE TABLE IF NOT EXISTS `downloads` (
   `qtddownloads` bigint(20) unsigned NOT NULL default '0',
   PRIMARY KEY  (`iddownloads`),
   KEY `fk_downloads_pessoas1` (`uploader`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
---
+-- 
 -- Extraindo dados da tabela `downloads`
---
+-- 
 
-INSERT INTO `downloads` (`iddownloads`, `arquivo`, `caminho`, `uploader`, `autor`, `qtddownloads`) VALUES
-(6, 'uyhtwtrew', 'motherboard_manual_ga-946gm-ds2_(s2)_e.pdf', 1, 'fdsafdsadfsa', 1),
-(7, 'aaaa', 'adhonep.sql_.zip', 1, 'fdafdsa', 3),
-(8, 'aaaaaaaaaaaaa', 'UHARC_GUI.2007-01-19_.zip', 1, 'aaa', 1),
-(12, 'gdsfdasfgdsa', 'CurriculumVitae_Leonardo.pdf', 1, 'ffdafdsa', 1),
-(15, 'Doca', 'texto.txt', 1, 'Autora', 1),
-(16, 'Lixo', 'Contrato_de_Aluguel_-_Floripa.doc', 1, 'Leonardo', 0);
+INSERT INTO `downloads` (`iddownloads`, `arquivo`, `caminho`, `uploader`, `autor`, `qtddownloads`) VALUES (1, '0', '', 1, '0', 1);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `ideias`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `ideias` (
+CREATE TABLE `ideias` (
   `idideias` int(10) unsigned NOT NULL auto_increment,
   `ideia` varchar(255) NOT NULL,
   `ondeusar` varchar(255) NOT NULL,
   `autor` varchar(255) default NULL,
   `desc` text,
   PRIMARY KEY  (`idideias`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
+-- 
 -- Extraindo dados da tabela `ideias`
---
+-- 
 
-INSERT INTO `ideias` (`idideias`, `ideia`, `ondeusar`, `autor`, `desc`) VALUES
-(2, 'Usar mais o sistema Adhonep', 'Opção 2', 'Leonardoaaaaa', 'f dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asf dsalfkd ajfdl asaaaa'),
-(6, 'Teste de idéia', ' Opção 3', 'Autora', 'Teste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaTeste de idéiaaaaaaaa'),
-(7, 'fdsafdsa', ' Opção 4', 'fdsafdsa', 'fdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsafdasfdsafdsaf dsaf da fdafdsa<br>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'),
-(8, 'fdasfdsa', ' Opção 3', 'fdasfdsa', 'fdasfdsa'),
-(9, 'ggggggg', ' Opção 3', 'aaaaa', 'fdasfdsa fdsa<br>'),
-(10, 'fdas', 'Opção 2', 'ffffff', 'fff'),
-(11, 'aaa', ' Opção 4', 'aaa', 'aa'),
-(12, '121121', ' Opção 3', 'fdsafdsa', 'fdsafdsa'),
-(13, '2222', ' Opção 3', 'fdsafdsa', 'fdsafdsa'),
-(14, 'gfdsgds', ' Opção 3', 'gfdsgds', 'gfdsgfds'),
-(15, 'gfdsgf', ' Opção 3', 'gfdsgf', 'sdgfdsgsd'),
-(16, 'gfdsgfds', 'Opção 2', 'gfsdgfds', 'gfdsgfds'),
-(17, 'gfdsgfds', 'Opção 2', 'gfsdgfds', 'gfdsgfds'),
-(18, 'fdsafds', ' Opção 4', 'fdsafdsa', 'fdsafdsa'),
-(19, 'aaa', ' Opção 4', 'aaaa', 'aaa'),
-(20, 'aaa', ' Opção 4', 'fdsafdsa', 'fdsafdsa'),
-(21, 'bnnnx', ' Opção 3', 'fdafdsa', 'fdafdsa'),
-(22, 'fdasfdsa', ' Opção 3', 'fdsafdas', 'fdafdsa'),
-(23, 'fdsafdsa', ' Opção 3', 'fdsafdsa', 'fdsafdsa');
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_banner`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_banner` (
+CREATE TABLE `jos_banner` (
   `bid` int(11) NOT NULL auto_increment,
   `cid` int(11) NOT NULL default '0',
   `type` varchar(30) NOT NULL default 'banner',
@@ -322,18 +236,18 @@ CREATE TABLE IF NOT EXISTS `jos_banner` (
   KEY `idx_banner_catid` (`catid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_banner`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_bannerclient`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_bannerclient` (
+CREATE TABLE `jos_bannerclient` (
   `cid` int(11) NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
   `contact` varchar(255) NOT NULL default '',
@@ -345,35 +259,35 @@ CREATE TABLE IF NOT EXISTS `jos_bannerclient` (
   PRIMARY KEY  (`cid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_bannerclient`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_bannertrack`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_bannertrack` (
+CREATE TABLE `jos_bannertrack` (
   `track_date` date NOT NULL,
   `track_type` int(10) unsigned NOT NULL,
   `banner_id` int(10) unsigned NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_bannertrack`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_categories`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_categories` (
+CREATE TABLE `jos_categories` (
   `id` int(11) NOT NULL auto_increment,
   `parent_id` int(11) NOT NULL default '0',
   `title` varchar(255) NOT NULL default '',
@@ -397,18 +311,18 @@ CREATE TABLE IF NOT EXISTS `jos_categories` (
   KEY `idx_checkout` (`checked_out`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_categories`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_components`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_components` (
+CREATE TABLE `jos_components` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(50) NOT NULL default '',
   `link` varchar(255) NOT NULL default '',
@@ -424,14 +338,13 @@ CREATE TABLE IF NOT EXISTS `jos_components` (
   `enabled` tinyint(4) NOT NULL default '1',
   PRIMARY KEY  (`id`),
   KEY `parent_option` (`parent`,`option`(32))
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_components`
---
+-- 
 
-INSERT INTO `jos_components` (`id`, `name`, `link`, `menuid`, `parent`, `admin_menu_link`, `admin_menu_alt`, `option`, `ordering`, `admin_menu_img`, `iscore`, `params`, `enabled`) VALUES
-(1, 'Banners', '', 0, 0, '', 'Banner Management', 'com_banners', 0, 'js/ThemeOffice/component.png', 0, 'track_impressions=0\ntrack_clicks=0\ntag_prefix=\n\n', 1),
+INSERT INTO `jos_components` (`id`, `name`, `link`, `menuid`, `parent`, `admin_menu_link`, `admin_menu_alt`, `option`, `ordering`, `admin_menu_img`, `iscore`, `params`, `enabled`) VALUES (1, 'Banners', '', 0, 0, '', 'Banner Management', 'com_banners', 0, 'js/ThemeOffice/component.png', 0, 'track_impressions=0\ntrack_clicks=0\ntag_prefix=\n\n', 1),
 (2, 'Banners', '', 0, 1, 'option=com_banners', 'Active Banners', 'com_banners', 1, 'js/ThemeOffice/edit.png', 0, '', 1),
 (3, 'Clients', '', 0, 1, 'option=com_banners&c=client', 'Manage Clients', 'com_banners', 2, 'js/ThemeOffice/categories.png', 0, '', 1),
 (4, 'Web Links', 'option=com_weblinks', 0, 0, '', 'Manage Weblinks', 'com_weblinks', 0, 'js/ThemeOffice/component.png', 0, 'show_comp_description=1\ncomp_description=\nshow_link_hits=1\nshow_link_description=1\nshow_other_cats=1\nshow_headings=1\nshow_page_title=1\nlink_target=0\nlink_icons=\n\n', 1),
@@ -468,11 +381,11 @@ INSERT INTO `jos_components` (`id`, `name`, `link`, `menuid`, `parent`, `admin_m
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_contact_details`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_contact_details` (
+CREATE TABLE `jos_contact_details` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
   `alias` varchar(255) NOT NULL default '',
@@ -503,18 +416,18 @@ CREATE TABLE IF NOT EXISTS `jos_contact_details` (
   KEY `catid` (`catid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_contact_details`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_content`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_content` (
+CREATE TABLE `jos_content` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `title` varchar(255) NOT NULL default '',
   `alias` varchar(255) NOT NULL default '',
@@ -552,41 +465,39 @@ CREATE TABLE IF NOT EXISTS `jos_content` (
   KEY `idx_state` (`state`),
   KEY `idx_catid` (`catid`),
   KEY `idx_createdby` (`created_by`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_content`
---
+-- 
 
-INSERT INTO `jos_content` (`id`, `title`, `alias`, `title_alias`, `introtext`, `fulltext`, `state`, `sectionid`, `mask`, `catid`, `created`, `created_by`, `created_by_alias`, `modified`, `modified_by`, `checked_out`, `checked_out_time`, `publish_up`, `publish_down`, `images`, `urls`, `attribs`, `version`, `parentid`, `ordering`, `metakey`, `metadesc`, `access`, `hits`, `metadata`) VALUES
-(1, 'dfadsa', 'fdsafdsa', '', '<p><span style="color: #000000; font-family: ''Times New Roman''; font-size: medium; line-height: normal;"> </span></p>\r\n<div style="color: #333333; font-family: Tahoma, Helvetica, Arial, sans-serif; font-size: 76%; background-image: initial; background-repeat: initial; background-attachment: initial; -webkit-background-clip: initial; -webkit-background-origin: initial; background-color: #ffffff; line-height: 1.3em; background-position: initial initial; margin: 0px;">\r\n<p style="margin-top: 10px; margin-bottom: 15px;"><span style="color: #000000; font-family: ''Times New Roman''; font-size: medium; line-height: normal;"> </span></p>\r\n<div style="color: #333333; font-family: Tahoma, Helvetica, Arial, sans-serif; font-size: 76%; background-image: initial; background-repeat: initial; background-attachment: initial; -webkit-background-clip: initial; -webkit-background-origin: initial; background-color: #ffffff; line-height: 1.3em; background-position: initial initial; margin: 0px;">\r\n<p style="margin-top: 10px; margin-bottom: 15px;"> </p>\r\n<div style="color: #333333; font-family: Tahoma, Helvetica, Arial, sans-serif; font-size: 12px; background-image: initial; background-repeat: initial; background-attachment: initial; -webkit-background-clip: initial; -webkit-background-origin: initial; background-color: #ffffff; line-height: 1.3em; margin: 0px;">\r\n<p style="margin-top: 10px; margin-bottom: 15px;">fd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd</p>\r\n</div>\r\n</div>\r\n<p> </p>\r\n</div>\r\n<p> </p>', '', 1, 0, 0, 0, '2009-09-22 02:41:41', 62, '', '2009-09-22 12:59:48', 62, 0, '0000-00-00 00:00:00', '2009-09-22 02:41:41', '0000-00-00 00:00:00', '', '', 'show_title=\nlink_titles=\nshow_intro=\nshow_section=\nlink_section=\nshow_category=\nlink_category=\nshow_vote=\nshow_author=\nshow_create_date=\nshow_modify_date=\nshow_pdf_icon=\nshow_print_icon=\nshow_email_icon=\nlanguage=\nkeyref=\nreadmore=', 2, 0, 1, '', '', 0, 0, 'robots=\nauthor=');
+INSERT INTO `jos_content` (`id`, `title`, `alias`, `title_alias`, `introtext`, `fulltext`, `state`, `sectionid`, `mask`, `catid`, `created`, `created_by`, `created_by_alias`, `modified`, `modified_by`, `checked_out`, `checked_out_time`, `publish_up`, `publish_down`, `images`, `urls`, `attribs`, `version`, `parentid`, `ordering`, `metakey`, `metadesc`, `access`, `hits`, `metadata`) VALUES (1, 'dfadsa', 'fdsafdsa', '', '<p><span style="color: #000000; font-family: ''Times New Roman''; font-size: medium; line-height: normal;"> </span></p>\r\n<div style="color: #333333; font-family: Tahoma, Helvetica, Arial, sans-serif; font-size: 76%; background-image: initial; background-repeat: initial; background-attachment: initial; -webkit-background-clip: initial; -webkit-background-origin: initial; background-color: #ffffff; line-height: 1.3em; background-position: initial initial; margin: 0px;">\r\n<p style="margin-top: 10px; margin-bottom: 15px;"><span style="color: #000000; font-family: ''Times New Roman''; font-size: medium; line-height: normal;"> </span></p>\r\n<div style="color: #333333; font-family: Tahoma, Helvetica, Arial, sans-serif; font-size: 76%; background-image: initial; background-repeat: initial; background-attachment: initial; -webkit-background-clip: initial; -webkit-background-origin: initial; background-color: #ffffff; line-height: 1.3em; background-position: initial initial; margin: 0px;">\r\n<p style="margin-top: 10px; margin-bottom: 15px;"> </p>\r\n<div style="color: #333333; font-family: Tahoma, Helvetica, Arial, sans-serif; font-size: 12px; background-image: initial; background-repeat: initial; background-attachment: initial; -webkit-background-clip: initial; -webkit-background-origin: initial; background-color: #ffffff; line-height: 1.3em; margin: 0px;">\r\n<p style="margin-top: 10px; margin-bottom: 15px;">fd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd salfd sajflkd alkfjd</p>\r\n</div>\r\n</div>\r\n<p> </p>\r\n</div>\r\n<p> </p>', '', 1, 0, 0, 0, '2009-09-22 02:41:41', 62, '', '2009-09-22 12:59:48', 62, 0, '0000-00-00 00:00:00', '2009-09-22 02:41:41', '0000-00-00 00:00:00', '', '', 'show_title=\nlink_titles=\nshow_intro=\nshow_section=\nlink_section=\nshow_category=\nlink_category=\nshow_vote=\nshow_author=\nshow_create_date=\nshow_modify_date=\nshow_pdf_icon=\nshow_print_icon=\nshow_email_icon=\nlanguage=\nkeyref=\nreadmore=', 2, 0, 1, '', '', 0, 0, 'robots=\nauthor=');
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_content_frontpage`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_content_frontpage` (
+CREATE TABLE `jos_content_frontpage` (
   `content_id` int(11) NOT NULL default '0',
   `ordering` int(11) NOT NULL default '0',
   PRIMARY KEY  (`content_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_content_frontpage`
---
+-- 
 
-INSERT INTO `jos_content_frontpage` (`content_id`, `ordering`) VALUES
-(1, 1);
+INSERT INTO `jos_content_frontpage` (`content_id`, `ordering`) VALUES (1, 1);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_content_rating`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_content_rating` (
+CREATE TABLE `jos_content_rating` (
   `content_id` int(11) NOT NULL default '0',
   `rating_sum` int(11) unsigned NOT NULL default '0',
   `rating_count` int(11) unsigned NOT NULL default '0',
@@ -594,18 +505,18 @@ CREATE TABLE IF NOT EXISTS `jos_content_rating` (
   PRIMARY KEY  (`content_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_content_rating`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_core_acl_aro`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_core_acl_aro` (
+CREATE TABLE `jos_core_acl_aro` (
   `id` int(11) NOT NULL auto_increment,
   `section_value` varchar(240) NOT NULL default '0',
   `value` varchar(240) NOT NULL default '',
@@ -615,22 +526,21 @@ CREATE TABLE IF NOT EXISTS `jos_core_acl_aro` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `jos_section_value_value_aro` (`section_value`(100),`value`(100)),
   KEY `jos_gacl_hidden_aro` (`hidden`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_core_acl_aro`
---
+-- 
 
-INSERT INTO `jos_core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`) VALUES
-(10, 'users', '62', 0, 'Administrator', 0);
+INSERT INTO `jos_core_acl_aro` (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`) VALUES (10, 'users', '62', 0, 'Administrator', 0);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_core_acl_aro_groups`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_core_acl_aro_groups` (
+CREATE TABLE `jos_core_acl_aro_groups` (
   `id` int(11) NOT NULL auto_increment,
   `parent_id` int(11) NOT NULL default '0',
   `name` varchar(255) NOT NULL default '',
@@ -640,14 +550,13 @@ CREATE TABLE IF NOT EXISTS `jos_core_acl_aro_groups` (
   PRIMARY KEY  (`id`),
   KEY `jos_gacl_parent_id_aro_groups` (`parent_id`),
   KEY `jos_gacl_lft_rgt_aro_groups` (`lft`,`rgt`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_core_acl_aro_groups`
---
+-- 
 
-INSERT INTO `jos_core_acl_aro_groups` (`id`, `parent_id`, `name`, `lft`, `rgt`, `value`) VALUES
-(17, 0, 'ROOT', 1, 22, 'ROOT'),
+INSERT INTO `jos_core_acl_aro_groups` (`id`, `parent_id`, `name`, `lft`, `rgt`, `value`) VALUES (17, 0, 'ROOT', 1, 22, 'ROOT'),
 (28, 17, 'USERS', 2, 21, 'USERS'),
 (29, 28, 'Public Frontend', 3, 12, 'Public Frontend'),
 (18, 29, 'Registered', 4, 11, 'Registered'),
@@ -661,29 +570,29 @@ INSERT INTO `jos_core_acl_aro_groups` (`id`, `parent_id`, `name`, `lft`, `rgt`, 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_core_acl_aro_map`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_core_acl_aro_map` (
+CREATE TABLE `jos_core_acl_aro_map` (
   `acl_id` int(11) NOT NULL default '0',
   `section_value` varchar(230) NOT NULL default '0',
   `value` varchar(100) NOT NULL,
   PRIMARY KEY  (`acl_id`,`section_value`,`value`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_core_acl_aro_map`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_core_acl_aro_sections`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_core_acl_aro_sections` (
+CREATE TABLE `jos_core_acl_aro_sections` (
   `id` int(11) NOT NULL auto_increment,
   `value` varchar(230) NOT NULL default '',
   `order_value` int(11) NOT NULL default '0',
@@ -692,97 +601,94 @@ CREATE TABLE IF NOT EXISTS `jos_core_acl_aro_sections` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `jos_gacl_value_aro_sections` (`value`),
   KEY `jos_gacl_hidden_aro_sections` (`hidden`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_core_acl_aro_sections`
---
+-- 
 
-INSERT INTO `jos_core_acl_aro_sections` (`id`, `value`, `order_value`, `name`, `hidden`) VALUES
-(10, 'users', 1, 'Users', 0);
+INSERT INTO `jos_core_acl_aro_sections` (`id`, `value`, `order_value`, `name`, `hidden`) VALUES (10, 'users', 1, 'Users', 0);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_core_acl_groups_aro_map`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_core_acl_groups_aro_map` (
+CREATE TABLE `jos_core_acl_groups_aro_map` (
   `group_id` int(11) NOT NULL default '0',
   `section_value` varchar(240) NOT NULL default '',
   `aro_id` int(11) NOT NULL default '0',
   UNIQUE KEY `group_id_aro_id_groups_aro_map` (`group_id`,`section_value`,`aro_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_core_acl_groups_aro_map`
---
+-- 
 
-INSERT INTO `jos_core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`) VALUES
-(25, '', 10);
+INSERT INTO `jos_core_acl_groups_aro_map` (`group_id`, `section_value`, `aro_id`) VALUES (25, '', 10);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_core_log_items`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_core_log_items` (
+CREATE TABLE `jos_core_log_items` (
   `time_stamp` date NOT NULL default '0000-00-00',
   `item_table` varchar(50) NOT NULL default '',
   `item_id` int(11) unsigned NOT NULL default '0',
   `hits` int(11) unsigned NOT NULL default '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_core_log_items`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_core_log_searches`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_core_log_searches` (
+CREATE TABLE `jos_core_log_searches` (
   `search_term` varchar(128) NOT NULL default '',
   `hits` int(11) unsigned NOT NULL default '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_core_log_searches`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_groups`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_groups` (
+CREATE TABLE `jos_groups` (
   `id` tinyint(3) unsigned NOT NULL default '0',
   `name` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_groups`
---
+-- 
 
-INSERT INTO `jos_groups` (`id`, `name`) VALUES
-(0, 'Public'),
+INSERT INTO `jos_groups` (`id`, `name`) VALUES (0, 'Public'),
 (1, 'Registered'),
 (2, 'Special');
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_menu`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_menu` (
+CREATE TABLE `jos_menu` (
   `id` int(11) NOT NULL auto_increment,
   `menutype` varchar(75) default NULL,
   `name` varchar(255) default NULL,
@@ -807,14 +713,13 @@ CREATE TABLE IF NOT EXISTS `jos_menu` (
   PRIMARY KEY  (`id`),
   KEY `componentid` (`componentid`,`menutype`,`published`,`access`),
   KEY `menutype` (`menutype`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_menu`
---
+-- 
 
-INSERT INTO `jos_menu` (`id`, `menutype`, `name`, `alias`, `link`, `type`, `published`, `parent`, `componentid`, `sublevel`, `ordering`, `checked_out`, `checked_out_time`, `pollid`, `browserNav`, `access`, `utaccess`, `params`, `lft`, `rgt`, `home`) VALUES
-(1, 'mainmenu', 'Capa', 'capa', 'index.php?option=com_content&view=frontpage', 'component', 1, 0, 20, 0, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'num_leading_articles=1\nnum_intro_articles=4\nnum_columns=2\nnum_links=4\norderby_pri=\norderby_sec=front\nmulti_column_order=1\nshow_pagination=2\nshow_pagination_results=1\nshow_feed_link=1\nshow_noauth=\nshow_title=\nlink_titles=\nshow_intro=\nshow_section=\nlink_section=\nshow_category=\nlink_category=\nshow_author=\nshow_create_date=\nshow_modify_date=\nshow_item_navigation=\nshow_readmore=\nshow_vote=\nshow_icons=\nshow_pdf_icon=\nshow_print_icon=\nshow_email_icon=\nshow_hits=\nfeed_summary=\npage_title=\nshow_page_title=1\npageclass_sfx=\nmenu_image=-1\nsecure=0\n\n', 0, 0, 1),
+INSERT INTO `jos_menu` (`id`, `menutype`, `name`, `alias`, `link`, `type`, `published`, `parent`, `componentid`, `sublevel`, `ordering`, `checked_out`, `checked_out_time`, `pollid`, `browserNav`, `access`, `utaccess`, `params`, `lft`, `rgt`, `home`) VALUES (1, 'mainmenu', 'Capa', 'capa', 'index.php?option=com_content&view=frontpage', 'component', 1, 0, 20, 0, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 3, 'num_leading_articles=1\nnum_intro_articles=4\nnum_columns=2\nnum_links=4\norderby_pri=\norderby_sec=front\nmulti_column_order=1\nshow_pagination=2\nshow_pagination_results=1\nshow_feed_link=1\nshow_noauth=\nshow_title=\nlink_titles=\nshow_intro=\nshow_section=\nlink_section=\nshow_category=\nlink_category=\nshow_author=\nshow_create_date=\nshow_modify_date=\nshow_item_navigation=\nshow_readmore=\nshow_vote=\nshow_icons=\nshow_pdf_icon=\nshow_print_icon=\nshow_email_icon=\nshow_hits=\nfeed_summary=\npage_title=\nshow_page_title=1\npageclass_sfx=\nmenu_image=-1\nsecure=0\n\n', 0, 0, 1),
 (2, 'mainmenu', 'Quem Somos', 'quem-somos', 'http://www.google.com', 'url', 1, 0, 0, 0, 2, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'menu_image=-1\n\n', 0, 0, 0),
 (3, 'mainmenu', 'Opção 1', 'opcao-1', 'http://www.google.com', 'url', 1, 2, 0, 1, 1, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'menu_image=-1\n\n', 0, 0, 0),
 (4, 'mainmenu', 'Opção 2', 'opcao-2', '', 'url', 1, 2, 0, 1, 2, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 'menu_image=-1\n\n', 0, 0, 0),
@@ -826,33 +731,32 @@ INSERT INTO `jos_menu` (`id`, `menutype`, `name`, `alias`, `link`, `type`, `publ
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_menu_types`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_menu_types` (
+CREATE TABLE `jos_menu_types` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `menutype` varchar(75) NOT NULL default '',
   `title` varchar(255) NOT NULL default '',
   `description` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`),
   UNIQUE KEY `menutype` (`menutype`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_menu_types`
---
+-- 
 
-INSERT INTO `jos_menu_types` (`id`, `menutype`, `title`, `description`) VALUES
-(1, 'mainmenu', 'Main Menu', 'The main menu for the site');
+INSERT INTO `jos_menu_types` (`id`, `menutype`, `title`, `description`) VALUES (1, 'mainmenu', 'Main Menu', 'The main menu for the site');
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_messages`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_messages` (
+CREATE TABLE `jos_messages` (
   `message_id` int(10) unsigned NOT NULL auto_increment,
   `user_id_from` int(10) unsigned NOT NULL default '0',
   `user_id_to` int(10) unsigned NOT NULL default '0',
@@ -866,36 +770,36 @@ CREATE TABLE IF NOT EXISTS `jos_messages` (
   KEY `useridto_state` (`user_id_to`,`state`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_messages`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_messages_cfg`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_messages_cfg` (
+CREATE TABLE `jos_messages_cfg` (
   `user_id` int(10) unsigned NOT NULL default '0',
   `cfg_name` varchar(100) NOT NULL default '',
   `cfg_value` varchar(255) NOT NULL default '',
   UNIQUE KEY `idx_user_var_name` (`user_id`,`cfg_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_messages_cfg`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_migration_backlinks`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_migration_backlinks` (
+CREATE TABLE `jos_migration_backlinks` (
   `itemid` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `url` text NOT NULL,
@@ -904,18 +808,18 @@ CREATE TABLE IF NOT EXISTS `jos_migration_backlinks` (
   PRIMARY KEY  (`itemid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_migration_backlinks`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_modules`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_modules` (
+CREATE TABLE `jos_modules` (
   `id` int(11) NOT NULL auto_increment,
   `title` text NOT NULL,
   `content` text NOT NULL,
@@ -935,14 +839,13 @@ CREATE TABLE IF NOT EXISTS `jos_modules` (
   PRIMARY KEY  (`id`),
   KEY `published` (`published`,`access`),
   KEY `newsfeeds` (`module`,`published`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_modules`
---
+-- 
 
-INSERT INTO `jos_modules` (`id`, `title`, `content`, `ordering`, `position`, `checked_out`, `checked_out_time`, `published`, `module`, `numnews`, `access`, `showtitle`, `params`, `iscore`, `client_id`, `control`) VALUES
-(1, 'Main Menu', '', 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mainmenu', 0, 0, 1, 'menutype=mainmenu\nmoduleclass_sfx=_menu\n', 1, 0, ''),
+INSERT INTO `jos_modules` (`id`, `title`, `content`, `ordering`, `position`, `checked_out`, `checked_out_time`, `published`, `module`, `numnews`, `access`, `showtitle`, `params`, `iscore`, `client_id`, `control`) VALUES (1, 'Main Menu', '', 1, 'left', 0, '0000-00-00 00:00:00', 1, 'mod_mainmenu', 0, 0, 1, 'menutype=mainmenu\nmoduleclass_sfx=_menu\n', 1, 0, ''),
 (2, 'Login', '', 1, 'login', 0, '0000-00-00 00:00:00', 1, 'mod_login', 0, 0, 1, '', 1, 1, ''),
 (3, 'Popular', '', 3, 'cpanel', 0, '0000-00-00 00:00:00', 1, 'mod_popular', 0, 2, 1, '', 0, 1, ''),
 (4, 'Recent added Articles', '', 4, 'cpanel', 0, '0000-00-00 00:00:00', 1, 'mod_latest', 0, 2, 1, 'ordering=c_dsc\nuser_id=0\ncache=0\n\n', 0, 1, ''),
@@ -961,31 +864,30 @@ INSERT INTO `jos_modules` (`id`, `title`, `content`, `ordering`, `position`, `ch
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_modules_menu`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_modules_menu` (
+CREATE TABLE `jos_modules_menu` (
   `moduleid` int(11) NOT NULL default '0',
   `menuid` int(11) NOT NULL default '0',
   PRIMARY KEY  (`moduleid`,`menuid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_modules_menu`
---
+-- 
 
-INSERT INTO `jos_modules_menu` (`moduleid`, `menuid`) VALUES
-(1, 0),
+INSERT INTO `jos_modules_menu` (`moduleid`, `menuid`) VALUES (1, 0),
 (16, 0);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_newsfeeds`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_newsfeeds` (
+CREATE TABLE `jos_newsfeeds` (
   `catid` int(11) NOT NULL default '0',
   `id` int(11) NOT NULL auto_increment,
   `name` text NOT NULL,
@@ -1004,18 +906,18 @@ CREATE TABLE IF NOT EXISTS `jos_newsfeeds` (
   KEY `catid` (`catid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_newsfeeds`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_plugins`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_plugins` (
+CREATE TABLE `jos_plugins` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(100) NOT NULL default '',
   `element` varchar(100) NOT NULL default '',
@@ -1030,14 +932,13 @@ CREATE TABLE IF NOT EXISTS `jos_plugins` (
   `params` text NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `idx_folder` (`published`,`client_id`,`access`,`folder`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_plugins`
---
+-- 
 
-INSERT INTO `jos_plugins` (`id`, `name`, `element`, `folder`, `access`, `ordering`, `published`, `iscore`, `client_id`, `checked_out`, `checked_out_time`, `params`) VALUES
-(1, 'Authentication - Joomla', 'joomla', 'authentication', 0, 1, 1, 1, 0, 0, '0000-00-00 00:00:00', ''),
+INSERT INTO `jos_plugins` (`id`, `name`, `element`, `folder`, `access`, `ordering`, `published`, `iscore`, `client_id`, `checked_out`, `checked_out_time`, `params`) VALUES (1, 'Authentication - Joomla', 'joomla', 'authentication', 0, 1, 1, 1, 0, 0, '0000-00-00 00:00:00', ''),
 (2, 'Authentication - LDAP', 'ldap', 'authentication', 0, 2, 0, 1, 0, 0, '0000-00-00 00:00:00', 'host=\nport=389\nuse_ldapV3=0\nnegotiate_tls=0\nno_referrals=0\nauth_method=bind\nbase_dn=\nsearch_string=\nusers_dn=\nusername=\npassword=\nldap_fullname=fullName\nldap_email=mail\nldap_uid=uid\n\n'),
 (3, 'Authentication - GMail', 'gmail', 'authentication', 0, 4, 0, 0, 0, 0, '0000-00-00 00:00:00', ''),
 (4, 'Authentication - OpenID', 'openid', 'authentication', 0, 3, 0, 0, 0, 0, '0000-00-00 00:00:00', ''),
@@ -1072,11 +973,68 @@ INSERT INTO `jos_plugins` (`id`, `name`, `element`, `folder`, `access`, `orderin
 
 -- --------------------------------------------------------
 
---
--- Estrutura da tabela `jos_polls`
---
+-- 
+-- Estrutura da tabela `jos_poll_data`
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_polls` (
+CREATE TABLE `jos_poll_data` (
+  `id` int(11) NOT NULL auto_increment,
+  `pollid` int(11) NOT NULL default '0',
+  `text` text NOT NULL,
+  `hits` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `pollid` (`pollid`,`text`(1))
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- 
+-- Extraindo dados da tabela `jos_poll_data`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `jos_poll_date`
+-- 
+
+CREATE TABLE `jos_poll_date` (
+  `id` bigint(20) NOT NULL auto_increment,
+  `date` datetime NOT NULL default '0000-00-00 00:00:00',
+  `vote_id` int(11) NOT NULL default '0',
+  `poll_id` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `poll_id` (`poll_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- 
+-- Extraindo dados da tabela `jos_poll_date`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `jos_poll_menu`
+-- 
+
+CREATE TABLE `jos_poll_menu` (
+  `pollid` int(11) NOT NULL default '0',
+  `menuid` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`pollid`,`menuid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- Extraindo dados da tabela `jos_poll_menu`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `jos_polls`
+-- 
+
+CREATE TABLE `jos_polls` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `title` varchar(255) NOT NULL default '',
   `alias` varchar(255) NOT NULL default '',
@@ -1089,75 +1047,18 @@ CREATE TABLE IF NOT EXISTS `jos_polls` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_polls`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
--- Estrutura da tabela `jos_poll_data`
---
-
-CREATE TABLE IF NOT EXISTS `jos_poll_data` (
-  `id` int(11) NOT NULL auto_increment,
-  `pollid` int(11) NOT NULL default '0',
-  `text` text NOT NULL,
-  `hits` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `pollid` (`pollid`,`text`(1))
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Extraindo dados da tabela `jos_poll_data`
---
-
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `jos_poll_date`
---
-
-CREATE TABLE IF NOT EXISTS `jos_poll_date` (
-  `id` bigint(20) NOT NULL auto_increment,
-  `date` datetime NOT NULL default '0000-00-00 00:00:00',
-  `vote_id` int(11) NOT NULL default '0',
-  `poll_id` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`),
-  KEY `poll_id` (`poll_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Extraindo dados da tabela `jos_poll_date`
---
-
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `jos_poll_menu`
---
-
-CREATE TABLE IF NOT EXISTS `jos_poll_menu` (
-  `pollid` int(11) NOT NULL default '0',
-  `menuid` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`pollid`,`menuid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `jos_poll_menu`
---
-
-
--- --------------------------------------------------------
-
---
+-- 
 -- Estrutura da tabela `jos_sections`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_sections` (
+CREATE TABLE `jos_sections` (
   `id` int(11) NOT NULL auto_increment,
   `title` varchar(255) NOT NULL default '',
   `name` varchar(255) NOT NULL default '',
@@ -1177,18 +1078,18 @@ CREATE TABLE IF NOT EXISTS `jos_sections` (
   KEY `idx_scope` (`scope`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_sections`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_session`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_session` (
+CREATE TABLE `jos_session` (
   `username` varchar(150) default '',
   `time` varchar(14) default '',
   `session_id` varchar(200) NOT NULL default '0',
@@ -1204,60 +1105,56 @@ CREATE TABLE IF NOT EXISTS `jos_session` (
   KEY `time` (`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_session`
---
+-- 
 
-INSERT INTO `jos_session` (`username`, `time`, `session_id`, `guest`, `userid`, `usertype`, `gid`, `client_id`, `data`) VALUES
-('', '1255111474', 'd057193273c8124f0e197ab14cecec9f', 1, 0, '', 0, 0, '__default|a:7:{s:15:"session.counter";i:4;s:19:"session.timer.start";i:1255111368;s:18:"session.timer.last";i:1255111473;s:17:"session.timer.now";i:1255111474;s:22:"session.client.browser";s:109:"Mozilla/5.0 (Windows; U; Windows NT 6.0; pt-BR; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)";s:8:"registry";O:9:"JRegistry":3:{s:17:"_defaultNameSpace";s:7:"session";s:9:"_registry";a:1:{s:7:"session";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:4:"user";O:5:"JUser":19:{s:2:"id";i:0;s:4:"name";N;s:8:"username";N;s:5:"email";N;s:8:"password";N;s:14:"password_clear";s:0:"";s:8:"usertype";N;s:5:"block";N;s:9:"sendEmail";i:0;s:3:"gid";i:0;s:12:"registerDate";N;s:13:"lastvisitDate";N;s:10:"activation";N;s:6:"params";N;s:3:"aid";i:0;s:5:"guest";i:1;s:7:"_params";O:10:"JParameter":7:{s:4:"_raw";s:0:"";s:4:"_xml";N;s:9:"_elements";a:0:{}s:12:"_elementPath";a:1:{i:0;s:66:"C:\\ServidorWEB\\www\\adhonep\\libraries\\joomla\\html\\parameter\\element";}s:17:"_defaultNameSpace";s:8:"_default";s:9:"_registry";a:1:{s:8:"_default";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:9:"_errorMsg";N;s:7:"_errors";a:0:{}}}'),
-('', '1255110943', 'a2cc21187ecb5e77bcd9316e514df3ee', 1, 0, '', 0, 0, '__default|a:7:{s:15:"session.counter";i:3;s:19:"session.timer.start";i:1255110858;s:18:"session.timer.last";i:1255110942;s:17:"session.timer.now";i:1255110943;s:22:"session.client.browser";s:109:"Mozilla/5.0 (Windows; U; Windows NT 6.0; pt-BR; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)";s:8:"registry";O:9:"JRegistry":3:{s:17:"_defaultNameSpace";s:7:"session";s:9:"_registry";a:1:{s:7:"session";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:4:"user";O:5:"JUser":19:{s:2:"id";i:0;s:4:"name";N;s:8:"username";N;s:5:"email";N;s:8:"password";N;s:14:"password_clear";s:0:"";s:8:"usertype";N;s:5:"block";N;s:9:"sendEmail";i:0;s:3:"gid";i:0;s:12:"registerDate";N;s:13:"lastvisitDate";N;s:10:"activation";N;s:6:"params";N;s:3:"aid";i:0;s:5:"guest";i:1;s:7:"_params";O:10:"JParameter":7:{s:4:"_raw";s:0:"";s:4:"_xml";N;s:9:"_elements";a:0:{}s:12:"_elementPath";a:1:{i:0;s:66:"C:\\ServidorWEB\\www\\adhonep\\libraries\\joomla\\html\\parameter\\element";}s:17:"_defaultNameSpace";s:8:"_default";s:9:"_registry";a:1:{s:8:"_default";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:9:"_errorMsg";N;s:7:"_errors";a:0:{}}}'),
-('', '1255106141', 'f453ad4119ea97f56504110fd1fe41da', 1, 0, '', 0, 0, '__default|a:7:{s:15:"session.counter";i:30;s:19:"session.timer.start";i:1255105038;s:18:"session.timer.last";i:1255106139;s:17:"session.timer.now";i:1255106141;s:22:"session.client.browser";s:109:"Mozilla/5.0 (Windows; U; Windows NT 6.0; pt-BR; rv:1.9.1.3) Gecko/20090824 Firefox/3.5.3 (.NET CLR 3.5.30729)";s:8:"registry";O:9:"JRegistry":3:{s:17:"_defaultNameSpace";s:7:"session";s:9:"_registry";a:1:{s:7:"session";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:4:"user";O:5:"JUser":19:{s:2:"id";i:0;s:4:"name";N;s:8:"username";N;s:5:"email";N;s:8:"password";N;s:14:"password_clear";s:0:"";s:8:"usertype";N;s:5:"block";N;s:9:"sendEmail";i:0;s:3:"gid";i:0;s:12:"registerDate";N;s:13:"lastvisitDate";N;s:10:"activation";N;s:6:"params";N;s:3:"aid";i:0;s:5:"guest";i:1;s:7:"_params";O:10:"JParameter":7:{s:4:"_raw";s:0:"";s:4:"_xml";N;s:9:"_elements";a:0:{}s:12:"_elementPath";a:1:{i:0;s:66:"C:\\ServidorWEB\\www\\adhonep\\libraries\\joomla\\html\\parameter\\element";}s:17:"_defaultNameSpace";s:8:"_default";s:9:"_registry";a:1:{s:8:"_default";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:9:"_errorMsg";N;s:7:"_errors";a:0:{}}}');
+INSERT INTO `jos_session` (`username`, `time`, `session_id`, `guest`, `userid`, `usertype`, `gid`, `client_id`, `data`) VALUES ('', '1275189756', 'aan21qs54ck6ii6418prrdu5f7', 1, 0, '', 0, 0, '__default|a:7:{s:15:"session.counter";i:1;s:19:"session.timer.start";i:1275189756;s:18:"session.timer.last";i:1275189756;s:17:"session.timer.now";i:1275189756;s:22:"session.client.browser";s:49:"msnbot/2.0b (+http://search.msn.com/msnbot.htm)._";s:8:"registry";O:9:"JRegistry":3:{s:17:"_defaultNameSpace";s:7:"session";s:9:"_registry";a:1:{s:7:"session";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:4:"user";O:5:"JUser":19:{s:2:"id";i:0;s:4:"name";N;s:8:"username";N;s:5:"email";N;s:8:"password";N;s:14:"password_clear";s:0:"";s:8:"usertype";N;s:5:"block";N;s:9:"sendEmail";i:0;s:3:"gid";i:0;s:12:"registerDate";N;s:13:"lastvisitDate";N;s:10:"activation";N;s:6:"params";N;s:3:"aid";i:0;s:5:"guest";i:1;s:7:"_params";O:10:"JParameter":7:{s:4:"_raw";s:0:"";s:4:"_xml";N;s:9:"_elements";a:0:{}s:12:"_elementPath";a:1:{i:0;s:108:"/var/www/vhosts/devhouse.com.br/subdomains/premiere/httpdocs/adhonep/libraries/joomla/html/parameter/element";}s:17:"_defaultNameSpace";s:8:"_default";s:9:"_registry";a:1:{s:8:"_default";a:1:{s:4:"data";O:8:"stdClass":0:{}}}s:7:"_errors";a:0:{}}s:9:"_errorMsg";N;s:7:"_errors";a:0:{}}}');
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_stats_agents`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_stats_agents` (
+CREATE TABLE `jos_stats_agents` (
   `agent` varchar(255) NOT NULL default '',
   `type` tinyint(1) unsigned NOT NULL default '0',
   `hits` int(11) unsigned NOT NULL default '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_stats_agents`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_templates_menu`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_templates_menu` (
+CREATE TABLE `jos_templates_menu` (
   `template` varchar(255) NOT NULL default '',
   `menuid` int(11) NOT NULL default '0',
   `client_id` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`menuid`,`client_id`,`template`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `jos_templates_menu`
---
+-- 
 
-INSERT INTO `jos_templates_menu` (`template`, `menuid`, `client_id`) VALUES
-('rt_affinity_j15', 0, 0),
+INSERT INTO `jos_templates_menu` (`template`, `menuid`, `client_id`) VALUES ('rt_affinity_j15', 0, 0),
 ('khepri', 0, 1);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_users`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_users` (
+CREATE TABLE `jos_users` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(255) NOT NULL default '',
   `username` varchar(150) NOT NULL default '',
@@ -1277,22 +1174,21 @@ CREATE TABLE IF NOT EXISTS `jos_users` (
   KEY `gid_block` (`gid`,`block`),
   KEY `username` (`username`),
   KEY `email` (`email`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=63 ;
+) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 AUTO_INCREMENT=63 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_users`
---
+-- 
 
-INSERT INTO `jos_users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES
-(62, 'Administrator', 'admin', 'leonardo@devhouse.com.br', '67a072816057d6149e207f618c99cbcb:LRS5lmNXhWPNvpSlrmHLnDMHsPUrLWvU', 'Super Administrator', 0, 1, 25, '2009-09-21 22:29:09', '2009-10-08 22:50:15', '', '');
+INSERT INTO `jos_users` (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`) VALUES (62, 'Administrator', 'admin', 'leonardo@devhouse.com.br', '67a072816057d6149e207f618c99cbcb:LRS5lmNXhWPNvpSlrmHLnDMHsPUrLWvU', 'Super Administrator', 0, 1, 25, '2009-09-21 22:29:09', '2009-10-08 22:50:15', '', '');
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `jos_weblinks`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `jos_weblinks` (
+CREATE TABLE `jos_weblinks` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `catid` int(11) NOT NULL default '0',
   `sid` int(11) NOT NULL default '0',
@@ -1313,69 +1209,57 @@ CREATE TABLE IF NOT EXISTS `jos_weblinks` (
   KEY `catid` (`catid`,`published`,`archived`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
+-- 
 -- Extraindo dados da tabela `jos_weblinks`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `locais`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `locais` (
+CREATE TABLE `locais` (
   `idlocais` int(10) unsigned NOT NULL auto_increment,
-  `local` varchar(255) character set latin1 NOT NULL,
-  `endereco` varchar(255) character set latin1 default NULL,
-  `bairro` varchar(100) character set latin1 default NULL,
-  `telefone` varchar(16) character set latin1 default NULL,
-  `desc` text character set latin1,
+  `local` varchar(255) NOT NULL,
+  `endereco` varchar(255) default NULL,
+  `bairro` varchar(100) default NULL,
+  `telefone` varchar(16) default NULL,
+  `desc` text,
   `idpessoas` int(10) unsigned NOT NULL,
   `idcidades` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`idlocais`),
   KEY `fk_locais_pessoas1` (`idpessoas`),
   KEY `fk_locais_cidades1` (`idcidades`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
---
+-- 
 -- Extraindo dados da tabela `locais`
---
+-- 
 
-INSERT INTO `locais` (`idlocais`, `local`, `endereco`, `bairro`, `telefone`, `desc`, `idpessoas`, `idcidades`) VALUES
-(1, 'Casa do Leonardo', 'Rua Orestes Guimarães, 225 - apto. 604', 'Centro', '4730266908', 'A minha casa<br>', 18, 1),
-(2, 'Igreja Santos Anjos', 'Rua da igreja, 45', 'Marinha', '4734372322', 'Igreja revestida em ouro.', 4, 4),
-(4, 'Igreja Bola de Neve', 'Rua Felipe Schimit', 'Centro', '4832236578', 'A igreja da mocidade.', 42, 5),
-(5, 'Auditório Municipal', 'Rua Central, 123', 'Centro', '(47) 3026-6908', 'Auditório Espaçoso', 43, 6),
-(6, 'fdsa', 'fdsafdsa', 'ffdsa', '(47) 3026-6908', '?fdsaffdsafdsaf dsaf dsa fdsa fd<br>', 15, 1),
-(7, 'kjhgkjhg', 'kljyhkgkj', 'uirtyr', '54654', '?hgfd ryjh fmjnhdf nhdf<br>', 2, 1),
-(8, 'tryreytre', 'gh dfsgfds ', ' gsdf gdsf ', '5432432', 'abacedkajfdlsa<br>', 13, 6),
-(9, 'gfsgfds', 'fdsaf dsaf dsa fdsaf dsa', 'f dsa fdsa fds', '543', '&nbsp;fdsafdsaf dsa fdsa<br>', 42, 6),
-(10, 'aaaaaaaaaaaaa', 'fdsafdsafdsa', 'fdsafdsafdsafds', '(47) 3026-6908', 'afdsafdsafdsafdsadsaf', 11, 1),
-(11, 'dffdsa', 'fdsafdsa', 'fdsaf', '(30) 2669-0808', 'dsafdsafdsafdsa', 42, 7),
-(12, 'a', 'fdsafdsa', 'fdsafdsa', '(54) 3214-3124', 'fdafdsa', 22, 10),
-(13, 'aa', 'fdsafdsa', 'fdsafd', '(34) 2143-1243', 'safdsafsa', 61, 1),
-(14, 'aaaa', 'fdafdsafdsafd', 'afdsafdas', '(43) 2143-2143', 'fdsafdafsa', 13, 1);
+INSERT INTO `locais` (`idlocais`, `local`, `endereco`, `bairro`, `telefone`, `desc`, `idpessoas`, `idcidades`) VALUES (1, 'LDI', 'Rua Dona Francisca, 4215', 'Bom Retiro', '(47) 3026-6500', '', 2, 1),
+(2, 'JIC - Joinville Iate Clube', 'Rua', 'Espinheiros', '', '<br>', 5, 1),
+(3, 'Casa do Palha', 'comandante frederico stoll, 46', 'centro', '(47) 4646-5465', '', 1, 1);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `permissoes`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `permissoes` (
+CREATE TABLE `permissoes` (
   `idpermissoes` int(10) unsigned NOT NULL auto_increment,
-  `permissao` varchar(255) character set latin1 default NULL,
+  `permissao` varchar(255) default NULL,
   PRIMARY KEY  (`idpermissoes`),
   KEY `permissao` (`permissao`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
---
+-- 
 -- Extraindo dados da tabela `permissoes`
---
+-- 
 
-INSERT INTO `permissoes` (`idpermissoes`, `permissao`) VALUES
-(8, 'administrador'),
+INSERT INTO `permissoes` (`idpermissoes`, `permissao`) VALUES (8, 'administrador'),
 (1, 'agenda'),
 (2, 'cidades'),
 (3, 'downloads'),
@@ -1386,103 +1270,48 @@ INSERT INTO `permissoes` (`idpermissoes`, `permissao`) VALUES
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `pessoas`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `pessoas` (
+CREATE TABLE `pessoas` (
   `idpessoas` int(10) unsigned NOT NULL auto_increment,
-  `nome` varchar(255) character set latin1 NOT NULL,
-  `email` varchar(255) character set latin1 NOT NULL,
-  `senha` varchar(50) character set latin1 default NULL,
-  `telefone` varchar(16) character set latin1 default NULL,
-  `celular` varchar(16) character set latin1 default NULL,
-  `endereco` varchar(255) character set latin1 default NULL,
-  `bairro` varchar(100) character set latin1 default NULL,
+  `nome` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `senha` varchar(50) default NULL,
+  `telefone` varchar(16) default NULL,
+  `celular` varchar(16) default NULL,
+  `endereco` varchar(255) default NULL,
+  `bairro` varchar(100) default NULL,
   `idcidades` int(10) unsigned NOT NULL,
-  `desc` text character set latin1,
+  `desc` text,
   `acesso` tinyint(1) NOT NULL,
   PRIMARY KEY  (`idpessoas`),
   UNIQUE KEY `email` (`email`),
   KEY `fk_pessoas_cidades1` (`idcidades`),
   KEY `nome` (`nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Pessoas e Usuários do sistema' AUTO_INCREMENT=86 ;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='Pessoas e Usuários do sistema' AUTO_INCREMENT=9 ;
 
---
+-- 
 -- Extraindo dados da tabela `pessoas`
---
+-- 
 
-INSERT INTO `pessoas` (`idpessoas`, `nome`, `email`, `senha`, `telefone`, `celular`, `endereco`, `bairro`, `idcidades`, `desc`, `acesso`) VALUES
-(1, 'Leonardo Lima de Vasconcellos', 'leonardo@devhouse.com.br', '0bc5b422a348b5958aacba5f863dd57f40ced581', '4730266908', '4799442321', 'Rua Orestes Guimarães, 225', 'Centro', 5, 'Programador Web', 1),
-(2, 'Denise Alcântara Bezzera de Lima', 'denise_jlle@hotmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '30266908', '99610414', 'Rua Orestes Guimarães, 225', 'Centro', 1, 'Minha Mãe', 1),
-(3, 'Rafael Lima de Vasconcellos', 'rafael.lima@totvs.com.br', 'da39a3ee5e6b4b0d3255bfef95601890afd80709', '33380232', '781613314', '', '', 1, '', 1),
-(4, 'Ismar M.', 'ismar@ldi.com.br', '27f63f5204217f3f80adffeeb92351aa5d9b2c25', '30303030', '99999999', 'Rua Dona Francisca, 5347', 'Bairro', 1, 'Descrição Ismar', 1),
-(5, 'Luis', 'luiz.camargo@agenciadmg.com.br', '123456', '33333333', '99999999', 'Rua Sem Nome, sn', 'Centro', 1, 'Descrição', 1),
-(6, 'Victor Castoldi Vasconcellos', 'victor.castoldi@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '30303', '9449459', 'Rua sem nome, sn', 'Bairro', 1, '', 0),
-(7, 'João da Silva', 'joao@dasilva.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4732184329', '3243242', 'Rua sem nome,sn', 'bairro', 1, '', 0),
-(8, 'Nome', 'email@email.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '46454645', '456456465', 'Rua Sem Nome, sn', 'Bairro', 1, 'fdsafdsafdsa', 0),
-(9, 'Janjão', 'janjao@email.com', '7751a23fa55170a57e90374df13a3ab78efe0e99', '78908', '989987987', 'rua tal, numero tal', 'Bairro', 1, '', 1),
-(11, 'Davi Golias', 'fdsajl@fjdaaaaa.com', '7751a23fa55170a57e90374df13a3ab78efe0e99', '57328473', '987459387', 'fjdsaklfjd123', 'Bairro', 2, '', 1),
-(12, 'Grand Master Flash', 'grand@masterflash.com', '1bdc12f0f29da10f6b637646821c0c56e8c48559', '0987097', '98798798', 'fdsaçl fdjskla flkdsaj flksd', 'fdjsaklfjdsl', 1, '', 1),
-(13, 'Anacleto Brocolli', 'anacleto@brocoli.com', 'cd3f0c85b158c08a2b113464991810cf2cdfc387', '5432342', '987978975', 'fhdsak fhdsa fj', 'fd salkfjds al', 1, '<br>', 1),
-(15, 'Edimilson Creison', 'edmilson@creison.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '5432542', '987987', 'fdsafdsafdsa, sn', 'fdsafdsa', 1, '', 1),
-(16, 'Juliano Barbosa', 'juliano@barbosa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '98798', '98798789', 'fdsafdsa', 'fdsafdsa', 1, '', 1),
-(17, 'Julian Moore', 'julian@moore.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '456456', '654654', 'fjad slakfj dsaçlkfj dsalf jdslaj', 'Bairro', 1, '', 1),
-(18, 'Amina Munsta', 'amina@munsta.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '09809808', '9674987', 'ds flakfj dlksafj dlksa fldksa jflkdsaj lfd jalkf dlksa djflka jfldaj flkdsa jflkd jsaklf jdaskl fjdklsa fjdlksafdsa fdsa fdsa fdsa fdsa fdas fdsa  fdsa fdsa fdsa fdsa fdsaf dsa fdsa fdsaf dsa fdsaf dsaf  dsaf dsa fdsa ', 'Bairro', 7, 'fdsafdsafdsafdsafds', 1),
-(19, 'Anastacia Velasco', 'ana@velasco.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '777777777', '98798498489', 'fdsafdsa fdsa fdsa fdsa fdsa', 'f dsa fdsa fdas fdas dsa', 1, 'dsa <a href="http://www.google.com">fdsaf </a>dsa <b>fdsa </b>fdsa <span style="background-color: rgb(255, 255, 0);">fdsa </span>fdsa <a href="http://www.google.com">fdsa </a>fd <font color="#99cc00">asf </font>dasf dsa dsa d<br>', 1),
-(20, 'Ludimila Kadinski', 'lulu@kaka.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '43214321', '43214322', 'fdsafdsafdsafdsa', 'fdsafdsafdsa', 1, 'fdsa <a href="http://www.google.com/">fdsaf </a>dsa <b>fdsa </b>fdsa <span style="background-color: rgb(255, 255, 0);">fdsa </span>fdsa fdsa fd <font color="#99cc00">asf </font>dasf dsa dsa d', 0),
-(21, 'Ratazana', 'rat@azana.com.br', '7e240de74fb1ed08fa08d38063f6a6a91462a815', '432432432', '432432', 'fdsafdsafdsafdsafdsafdsa', 'fdsafdsa', 1, 'dsafdsaf<font color="#ff6600">dsafdsa</font>fdsa', 1),
-(22, 'All the fear I have INSIDE', 'fear@tdv.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123456', '98797987', 'endereço 124', 'América', 6, '<img src="images/ajax-loader.gif" vspace="6" align="Esquerda" hspace="6"><br><br><b>All </b><font color="#ff6600">the </font><i>fear </i>I <font color="#ff0000">have </font>is <font color="#339966">only </font><a href="http://www.tdv.com">inside </a><span style="background-color: rgb(255, 102, 0);">my </span><font color="#00ffff">mind</font><br>', 0),
-(27, 'fdsafdsafd', 'afdsa@fdjsla.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '54325432', '12312', 'gfdsgfdsg', 'gfdsgfds', 4, 'A descrição está escrita aqui.<br>', 1),
-(29, 'fjdkslajf', 'leoj@fjdsl.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '789797', '1234456', 'vsadsafdsafdsaf', 'fdsafdsaf', 1, 'dsafdsafdsa', 1),
-(31, 'fjdsakljfdls', 'fhdsalk@fvjdslka.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1321321', '14564654', 'fdasfdsafdsaf', 'dsafdsafdsaf', 1, 'dsafdsafads', 1),
-(33, 'Fausta', 'sadfds@fjdls.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '5465465', '654564', 'fdsafdsafdsa', 'fdsafdsafd', 1, 'ffff', 1),
-(36, 'fdsafdsa', '123@jfdls.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4321321', '1431243', 'fdsafdsafdsa', 'fdsafdsa', 2, 'fdsafdsaf', 1),
-(40, 'fdsafdsafdsafdsa', 'fjds@dlfkdsa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4321431', '43214321', 'fdsafdsa', 'fdsafdsa', 4, 'fdsafdsa', 0),
-(41, 'Joey Ramone', 'fddjsajfdj@jfjfjfjfjfjjffjjf.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '43432432', '432432', 'fdsafdsafdsa, 123', 'bairro', 1, 'dsafd safd asf dsa fdsa fdsa fdsa <br>', 1),
-(42, 'Bruna Bitencourt', 'bruna@bit.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4325432432', '432432432', 'fdsafdsafdsaf', 'fdsafdsa', 1, 'yterytreuytreytre', 1),
-(43, 'HP Lovecraft', 'hp@lovecraft.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '564654', '456465465', 'fdsafdsafdsafdsafdsa123', 'fdsafdsafdsa', 1, 'aaaaaaaaaaaaaaaaa', 1),
-(44, 'KKK', 'fdsafaaaaddddsa@fdsajlf.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123132', '4564654', 'fdsafdsa', 'fdasfdsa', 1, '?fdsafdsa', 1),
-(45, 'Camila Rodrigues', 'camila@rodrigues.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '4730335589', '4799748553', 'Rua João Colin, 2345', 'América', 1, '<img src="images/imagens/camila_rodrigues.jpg" align="left" hspace="6" vspace="6">?Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse facilisis ligula sed ligula luctus congue. Fusce venenatis, lorem vitae porttitor lobortis, ipsum nunc facilisis ipsum, ac feugiat orci purus id velit. Maecenas vel lorem non magna eleifend varius et vel dui. Maecenas ut quam velit, ut gravida dolor. Aenean at enim risus, non feugiat ipsum. Nunc bibendum convallis tellus, porttitor dignissim leo fringilla ac. Curabitur congue enim ut quam placerat in interdum massa vestibulum. Duis sollicitudin elit et magna molestie vitae gravida est consequat. Quisque placerat, ante sit amet posuere suscipit, nibh magna posuere libero, rutrum consectetur elit nulla vitae nisl. Sed interdum laoreet justo vestibulum malesuada. Donec mattis volutpat mattis.<div><br></div><div>Etiam vitae sollicitudin lorem. Ut rhoncus purus eu ipsum bibendum tempor. Vestibulum scelerisque laoreet luctus. Aenean vehicula porttitor enim, eu bibendum diam blandit et. Proin sem libero, dapibus sit amet suscipit non, commodo eget nisl. Vivamus vitae arcu nisl, euismod egestas neque. In sed iaculis nulla. Quisque porttitor erat et ligula rutrum mollis pretium mi scelerisque. Mauris ornare porttitor volutpat. Donec eget quam mauris, eu aliquet massa. In dictum auctor dolor, a aliquam arcu mattis sit amet. Morbi et augue non turpis blandit convallis. Praesent at augue sapien, eu gravida leo. Morbi fringilla rutrum cursus. Etiam vitae ante et odio adipiscing convallis eu at lectus. Aenean auctor tortor ut urna egestas a tincidunt nisi commodo. Sed sed diam at orci elementum adipiscing.</div><div><br></div><div>Proin ut felis ut nisl sodales porta. Donec in eros vel nisi aliquet egestas gravida aliquet massa. Suspendisse facilisis viverra purus, vitae malesuada tortor vestibulum nec. Suspendisse quis tincidunt leo. Aliquam cursus commodo neque non suscipit. In molestie sagittis risus, sed euismod arcu lobortis quis. Integer et velit et ante semper scelerisque sed at tellus. Phasellus ornare dictum odio, at feugiat turpis venenatis id. Cras sed felis nunc. Etiam magna leo, ullamcorper quis ultricies eu, ultrices ut nisl. In hac habitasse platea dictumst. Vivamus ultrices, orci et ultricies tincidunt, mauris magna egestas leo, eu molestie purus metus id nibh. Nulla id ultricies magna. Duis tincidunt, dui vestibulum sagittis tempus, lorem felis suscipit sapien, ut porttitor dui urna non nibh.</div><div><br></div><div>Integer a turpis lorem. Pellentesque ac ullamcorper neque. Sed in turpis a dolor imperdiet egestas. Integer porttitor pulvinar lacinia. Sed nibh turpis, fermentum a venenatis ac, aliquet eu nisi. Nam arcu lectus, dignissim vel scelerisque non, facilisis non arcu. Vestibulum quis nibh dui. Nunc non nunc sed odio tincidunt hendrerit sollicitudin sit amet sem. Nunc congue pulvinar hendrerit. Vestibulum ut felis sapien, quis tincidunt erat. Nullam interdum purus ut eros consequat dignissim. Duis vehicula vestibulum tortor, et porttitor odio elementum at. Praesent vel tortor non orci lacinia pellentesque ac vitae massa. Proin eget facilisis risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum egestas, eros ac tincidunt pretium, leo dui pellentesque nisl, non hendrerit libero odio ac eros. Nam posuere, urna non cursus vulputate, eros eros luctus ligula, nec congue tortor orci at felis.</div><div><br></div><div>Aliquam nunc dolor, congue et commodo non, laoreet sit amet orci. Donec euismod lobortis dictum. Sed malesuada fringilla sem, a facilisis justo scelerisque et. Vivamus rutrum lectus et dui hendrerit facilisis. Vestibulum enim massa, fermentum et luctus sed, suscipit a felis. Sed aliquet volutpat pharetra. Aliquam rutrum, lectus at varius rutrum, ante leo sollicitudin magna, sit amet dapibus orci erat vel quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean id dignissim velit. Maecenas tristique nisi erat. Nunc dapibus aliquam nulla, at placerat leo auctor vel. Quisque feugiat urna quis libero facilisis volutpat.&nbsp;</div>', 1),
-(46, 'Oswaldo Marques', 'oswaldo@marques.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(41) 2323-5465', '(41) 9955-2322', 'Rua sem nome,sn', 'Batel', 9, 'fdsafdsadsafsa', 1),
-(47, 'fdsafdsa', 'fdsafd@fdsacc.net', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(63) 2563-2564', '(24) 3243-2432', 'fdsafdsafdsa', 'fdsafdsa', 9, 'fdsafdsafdsa', 1),
-(48, 'qqqqqqqqq', 'qq@qaqq.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(63) 4523-5432', '(23) 3223-3421', 'afdsafdsafdsa', 'fdsafdsa', 2, 'fdsafdsafdsa', 1),
-(49, 'aaaaaaa GBccc mXcr', 'gfdsgfs@ggghhhjjkkj.org', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2143-2143', '(43) 2432-1543', 'fdsafdsafdsa', 'fdsafdsa', 3, 'DESCRIÇÃO', 1),
-(50, 'bbbbbbbbb', 'bb@bb.net', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2432-1423', '(23) 4324-3242', 'fdsafdsafdsafdsafdsafdsa', 'fdsafdsafdsa', 4, 'fdsa fdsa fdsa fda f dsa fdsa fdsa<br>', 1),
-(52, 'ddddd', 'ddd@fdsa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2143-2143', '(32) 1432-1432', 'fdsafdsafdsa', 'fdsafdsafdsa', 5, 'safdsafdsafdsafdsafdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa fdsa <br>', 1),
-(53, 'Monica', 'm@monica.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2451-3243', '(31) 2432-1431', 'fdsa fdsa fdsaf dsa fdsa', ' fdsa fdsa fdsa', 2, 'f dsafdsa fdsa fdsa fdas fdsa fdsa <br>', 1),
-(54, 'Robert Langdon', 'robert@langdon.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(45) 6456-4564', '(45) 6456-4654', 'fdsafdsafdsa', 'fdsafdsa', 7, 'f dsafd <font color="#ff0000">safdsa </font>fdsa <span style="background-color: rgb(153, 204, 0);">fdsa </span>fdsa <b>fdsaf </b>dsa<br>', 1),
-(55, 'Altamiro Lima', 'altamiro@lima.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(45) 6464-5646', '(64) 6546-5446', 'fdsaf dsa dfsa fdsa fdsa', 'fdsafdsa', 7, '<b>fdsa </b>fdsa <font color="#ff0000">fdsaf </font>dsa fdsa <span style="background-color: rgb(255, 255, 0);">fdsa </span>fsa<br>', 0),
-(56, 'Jhon Lenon', 'john@beatles.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(56) 4654-6465', '(46) 4654-6546', 'fdsafdsafdsa', 'fdsafdsafdsa', 4, 'fdsaf dsa fdsa fdsa fdsa<br>', 1),
-(57, 'Ronaldinho', 'ronaldo@selecao.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(45) 4645-6465', '(56) 4646-5464', 'fdsafdsafdsa', 'fdsafdsa', 5, 'fdsafdsa fdsa fdsa fdsa fdsa fdsa fdsa<br>', 1),
-(58, 'Abadia Coristalina', 'abadia@fjdks.com', '53b722fe6a32e35699af061920916a4b927f4a61', '(45) 6464-6546', '(65) 4465-4564', 'fdsafdsafda', 'fdsafdsaf', 9, '<img src="images/add.png" vspace="6" align="left" hspace="6">fd asfd safdas fdsah tequ hg hgs htda hdat<img src="images/imagens/camila_rodrigues.jpg" vspace="6" align="right" hspace="6">', 1),
-(60, 'aa', 'aa@fdsa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(23) 4153-2142', '(65) 4654-5665', '1231d3saf1d3safdsa', 'fdafdsa', 11, 'fdsafdas fdsoaf ldkçsaj fdsaj fdsaj fçldsaj fçldasj flçkds jalkfj dslçaj <br>', 1),
-(61, 'aaa', 'aaa@fdasfdsa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(54) 3254-3254', '(52) 4325-4325', 'fdsafdsafdsafd', 'fdsafdsa', 2, 'fdsafdsafdsafdsa', 1),
-(63, 'Jason Newsted', 'jason@metallica.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(45) 6456-4654', '(78) 9789-7949', 'Rua sem nome, sn', 'Costa e Silva', 1, 'fdsaf <font color="#ff0000">das </font>fdas fdsaf <b>dsa </b>fdas fdsafdsa<br>', 0),
-(64, 'Abreu', 'fjdgdsafsakl@fjaadlska.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2131-4542', '(21) 4321-4321', 'fdafdasfdsa', 'fdafdsa', 12, '', 1),
-(65, 'João Batista', 'joao@batista.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(46) 5464-6464', '(46) 5465-4646', 'Rua tal, 45', 'Centro', 1, 'Rfjadslkf jdalkf dlksa jflkdsa jflkdsaj<br>', 1),
-(67, 'ab', 'ab@gjf.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 1432-1432', '(43) 2141-3143', 'fdafdsa', 'fdsafdsa', 7, 'fdsafdsa', 1),
-(68, 'abc', 'abc@fjdklsaj.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2143-2143', '(32) 1432-1432', 'fdasfdsa', 'fdsa', 9, 'fdasfdsa', 1),
-(71, 'fdsafdsa', 'fdsajklfds@fjdsalkfalksdjadfasl.com', '53b722fe6a32e35699af061920916a4b927f4a61', '(43) 2143-2143', '(43) 2143-2143', '43214321432', '143214', 11, '', 1),
-(73, 'aaaaa', 'aaaaa@aaaa.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 5432-5432', '(42) 3145-3214', 'fdsafsda', 'fdsafdsa', 9, '', 1),
-(74, 'aaaaaa', 'lfjdlksafj@lllllll.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(34) 1431-2431', '(43) 2143-2143', 'fdafdsafd', 'safdsafdsa', 9, '', 1),
-(75, 'aaaa', 'afdsafdsa@lllllsss.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(54) 3254-3254', '(54) 3254-3254', 'fdsafdsafdsa', 'fdsafdsa', 7, '', 1),
-(76, 'aab', 'ffdafdsaddd@kkk.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2143-2143', '(51) 3143-2143', 'fdsafdsaf', 'dsafdsafdsa', 9, '', 1),
-(77, 'yyyyyy', 'yyy@jfdl.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(34) 2142-1432', '(14) 3143-2143', 'fdsafdsaffd', 'safdsafdsa', 11, '', 1),
-(78, 'aabb', 'ieieie@dll.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(32) 1432-1421', '(43) 2143-2143', 'hfadskjaf', 'fdsafdsa', 5, '', 1),
-(79, 'aaaaaaY', 'fasfdsa4reqw@fj.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(52) 5425-4324', '(32) 1432-1432', 'afdasfdsa', 'fdffdfd', 5, '', 1),
-(80, 'aiiiiiii', 'aiiiii@iii.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(14) 3214-3214', '(31) 2431-4321', 'fdjaslfdjsa', 'rt4jdaslmv', 9, '', 1),
-(81, 'auuuuu', '4ouovjnvi@v.oi.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(50) 4328-1320', '(50) 1804-3821', 'fdsafds', 'flkdsjalf', 1, '', 1),
-(84, 'a', 'dsafdsa@fdsa.net', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(43) 2142-1432', '(43) 2143-2143', 'fdsafd', 'fdsafdsa', 1, '', 1),
-(85, 'fdsaf', 'leo@fjdsakl.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(32) 4143-2143', '(21) 4321-4321', 'fdsafdsa', 'fdsafdsa', 1, '', 1);
+INSERT INTO `pessoas` (`idpessoas`, `nome`, `email`, `senha`, `telefone`, `celular`, `endereco`, `bairro`, `idcidades`, `desc`, `acesso`) VALUES (1, 'Leonardo Lima de Vasconcellos', 'leonardo@devhouse.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(47) 3030-3333', '(47) 9999-9999', 'Rua sem nome, sn', 'Centro', 1, 'Analista de Sistemas', 1),
+(2, 'Ismar Rubens Marquardt', 'ismar@ldi.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(47) 3801-2372', '(47) 8415-2272', 'Rua Ituporanga, 100', 'Bom Retiro', 1, '', 1),
+(3, 'Jeferson Batera', 'jefabatera@hotmail.com', 'da39a3ee5e6b4b0d3255bfef95601890afd80709', '', '', '', 'Floresta', 1, '', 0),
+(4, 'Camila', 'camila@hotmail.com', 'c5c8066d458ef32d2d9d6c641cd90b1f5259ebed', '', '431243124321', 'Rua', 'itajai', 2, '<br>', 1),
+(5, 'Teste', 'teste@teste.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(48) 1546-4564', '(48) 9481-2648', 'Rua fjdsakfjdsaljkl', 'fdsafdsa', 3, 'fdsa fdsa fdsa fdsa <br>', 1),
+(6, 'Fernando fjdsaklfdjsal', 'fernando_marcucci@hotmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(47) 3026-6908', '(47) 9999-4456', 'gjsdflçgsdfjlg sdflgj dflçsj', 'affdjsalfdjs', 1, 'gasjfldsj afdj salfj dsa<img src="images/accordian.gif" align="left" hspace="6" vspace="6">', 0),
+(7, 'fdsafdsa', 'leo@le3o.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(34) 2143-1314', '(12) 3456-7894', 'fdsafdas', 'fdasfdsa', 3, 'fdasfdsafas<img src="images/accordian.gif" align="left" hspace="6" vspace="6">', 1),
+(8, 'Lilian', 'lilian@lilian.com.br', '7c4a8d09ca3762af61e59520943dc26494f8941b', '(45) 6465-4654', '(49) 8789-7894', 'fdklsajfldasj', 'centro', 1, '', 1);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `pessoas_atributospessoais`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `pessoas_atributospessoais` (
+CREATE TABLE `pessoas_atributospessoais` (
   `idpessoas` int(10) unsigned NOT NULL,
   `idatributospessoais` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`idpessoas`,`idatributospessoais`),
@@ -1490,42 +1319,31 @@ CREATE TABLE IF NOT EXISTS `pessoas_atributospessoais` (
   KEY `fk_pessoas_has_atributospessoais_atributospessoais1` (`idatributospessoais`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `pessoas_atributospessoais`
---
+-- 
 
-INSERT INTO `pessoas_atributospessoais` (`idpessoas`, `idatributospessoais`) VALUES
-(1, 1),
-(22, 3),
-(22, 6),
-(57, 1),
-(57, 2),
-(57, 3),
-(57, 4),
-(58, 3),
-(60, 1),
-(60, 2),
-(60, 3),
-(60, 4),
-(60, 5),
-(61, 1),
-(61, 2),
-(61, 3),
-(61, 4),
-(61, 5),
-(63, 2),
-(65, 2),
-(65, 3),
-(67, 5),
-(68, 5);
+INSERT INTO `pessoas_atributospessoais` (`idpessoas`, `idatributospessoais`) VALUES (2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(3, 2),
+(5, 1),
+(5, 2),
+(5, 3),
+(5, 4),
+(6, 2),
+(6, 3),
+(7, 3),
+(7, 4);
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `pessoas_cidades`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `pessoas_cidades` (
+CREATE TABLE `pessoas_cidades` (
   `pessoas_idpessoas` int(10) unsigned NOT NULL,
   `cidades_idcidades` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`pessoas_idpessoas`,`cidades_idcidades`),
@@ -1533,18 +1351,18 @@ CREATE TABLE IF NOT EXISTS `pessoas_cidades` (
   KEY `fk_pessoas_has_cidades_cidades` (`cidades_idcidades`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `pessoas_cidades`
---
+-- 
 
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Estrutura da tabela `pessoas_permissoes`
---
+-- 
 
-CREATE TABLE IF NOT EXISTS `pessoas_permissoes` (
+CREATE TABLE `pessoas_permissoes` (
   `idpessoas` int(10) unsigned NOT NULL,
   `idpermissoes` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`idpessoas`,`idpermissoes`),
@@ -1552,91 +1370,90 @@ CREATE TABLE IF NOT EXISTS `pessoas_permissoes` (
   KEY `fk_pessoas_has_permissoes_permissoes1` (`idpermissoes`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
+-- 
 -- Extraindo dados da tabela `pessoas_permissoes`
---
+-- 
 
-INSERT INTO `pessoas_permissoes` (`idpessoas`, `idpermissoes`) VALUES
-(1, 8),
+INSERT INTO `pessoas_permissoes` (`idpessoas`, `idpermissoes`) VALUES (1, 8),
 (2, 1),
-(19, 1),
-(22, 1),
-(22, 2),
-(22, 5),
-(58, 1),
-(58, 2),
-(58, 3),
-(58, 4),
-(58, 5),
-(58, 7),
-(63, 1),
-(65, 5),
-(65, 6),
-(67, 2),
-(68, 2);
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5),
+(2, 6),
+(2, 7),
+(2, 8),
+(4, 1),
+(4, 3),
+(4, 4),
+(4, 5),
+(5, 8),
+(6, 8),
+(7, 1),
+(7, 2);
 
---
+-- 
 -- Restrições para as tabelas dumpadas
---
+-- 
 
---
+-- 
 -- Restrições para a tabela `agenda`
---
+-- 
 ALTER TABLE `agenda`
   ADD CONSTRAINT `fk_agenda_locais1` FOREIGN KEY (`idlocais`) REFERENCES `locais` (`idlocais`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_agenda_pessoas1` FOREIGN KEY (`idpessoas`) REFERENCES `pessoas` (`idpessoas`) ON UPDATE CASCADE;
 
---
+-- 
 -- Restrições para a tabela `agenda_encarregados`
---
+-- 
 ALTER TABLE `agenda_encarregados`
-  ADD CONSTRAINT `agenda_encarregados_ibfk_1` FOREIGN KEY (`idagenda`) REFERENCES `agenda` (`idagenda`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `agenda_encarregados_ibfk_2` FOREIGN KEY (`idpessoas`) REFERENCES `pessoas` (`idpessoas`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_agenda_encarregados_agenda1` FOREIGN KEY (`idagenda`) REFERENCES `agenda` (`idagenda`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_agenda_encarregados_pessoas1` FOREIGN KEY (`idpessoas`) REFERENCES `pessoas` (`idpessoas`) ON UPDATE CASCADE;
 
---
+-- 
 -- Restrições para a tabela `cidades_atributospessoais_pessoas`
---
+-- 
 ALTER TABLE `cidades_atributospessoais_pessoas`
   ADD CONSTRAINT `fk_cidades_has_atributospessoais_atributospessoais1` FOREIGN KEY (`idatributospessoais`) REFERENCES `atributospessoais` (`idatributospessoais`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_cidades_has_atributospessoais_cidades1` FOREIGN KEY (`idcidades`) REFERENCES `cidades` (`idcidades`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_cidades_has_atributospessoais_pessoas1` FOREIGN KEY (`idpessoas`) REFERENCES `pessoas` (`idpessoas`) ON UPDATE CASCADE;
 
---
+-- 
 -- Restrições para a tabela `downloads`
---
+-- 
 ALTER TABLE `downloads`
   ADD CONSTRAINT `fk_downloads_pessoas1` FOREIGN KEY (`uploader`) REFERENCES `pessoas` (`idpessoas`) ON UPDATE NO ACTION;
 
---
+-- 
 -- Restrições para a tabela `locais`
---
+-- 
 ALTER TABLE `locais`
   ADD CONSTRAINT `fk_locais_cidades1` FOREIGN KEY (`idcidades`) REFERENCES `cidades` (`idcidades`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_locais_pessoas1` FOREIGN KEY (`idpessoas`) REFERENCES `pessoas` (`idpessoas`) ON UPDATE CASCADE;
 
---
+-- 
 -- Restrições para a tabela `pessoas`
---
+-- 
 ALTER TABLE `pessoas`
   ADD CONSTRAINT `fk_pessoas_cidades1` FOREIGN KEY (`idcidades`) REFERENCES `cidades` (`idcidades`) ON UPDATE CASCADE;
 
---
+-- 
 -- Restrições para a tabela `pessoas_atributospessoais`
---
+-- 
 ALTER TABLE `pessoas_atributospessoais`
   ADD CONSTRAINT `fk_pessoas_has_atributospessoais_atributospessoais1` FOREIGN KEY (`idatributospessoais`) REFERENCES `atributospessoais` (`idatributospessoais`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_pessoas_has_atributospessoais_pessoas1` FOREIGN KEY (`idpessoas`) REFERENCES `pessoas` (`idpessoas`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
+-- 
 -- Restrições para a tabela `pessoas_cidades`
---
+-- 
 ALTER TABLE `pessoas_cidades`
   ADD CONSTRAINT `fk_pessoas_has_cidades_cidades` FOREIGN KEY (`cidades_idcidades`) REFERENCES `cidades` (`idcidades`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_pessoas_has_cidades_pessoas` FOREIGN KEY (`pessoas_idpessoas`) REFERENCES `pessoas` (`idpessoas`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
+-- 
 -- Restrições para a tabela `pessoas_permissoes`
---
+-- 
 ALTER TABLE `pessoas_permissoes`
   ADD CONSTRAINT `fk_pessoas_has_permissoes_permissoes1` FOREIGN KEY (`idpermissoes`) REFERENCES `permissoes` (`idpermissoes`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_pessoas_has_permissoes_pessoas1` FOREIGN KEY (`idpessoas`) REFERENCES `pessoas` (`idpessoas`) ON DELETE CASCADE ON UPDATE CASCADE;
